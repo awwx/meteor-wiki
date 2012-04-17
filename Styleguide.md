@@ -23,7 +23,7 @@ If a function takes more arguments than there are formal parameters (via `argume
 
 (Not `/* varargs */` -- that's a C concept.)
 
-### self rather than this
+### `self` rather than `this`
 
 For methods that are more than a line or two long, always begin with `var self = this`, and always use `self`, never `this`. Ideally, do this everywhere. (Rationale: if the method contains lambdas, it is far too easy to write `this` inside the lambda, expecting to get the outer `this`. You need to use `self` in those cases. At that point, it's too hard to remember when to use `self` and when to use `this`, so you need to use `self` everywhere.)
 

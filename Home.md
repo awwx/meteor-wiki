@@ -1,6 +1,6 @@
-Welcome to the Meteor developer wiki!
+Welcome to the Meteor project.
 
-# Contributing code to the Meteor project
+### Contributing code to the Meteor project
 
 The best way (the only way?) to contribute code is to submit a pull request.  We have a few guidelines for you.
 

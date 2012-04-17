@@ -4,10 +4,85 @@ The first line of a commit should be 50 characters or less.  This is a soft limi
 
 Subsequent lines (if any) can be fairly verbose and detailed.  Use your judgement.
 
-# Whitespace
+### Whitespace
 
 * 2 space indents (setq js-indent-level 2)
 * spaces not literal tabs (setq-default indent-tabs-mode nil)
 * no trailing whitespace (setq-default show-trailing-whitespace t)
 
 Emacs users should check out [js2-mode](https://github.com/mooz/js2-mode) for a nice way to avoid silly javascript errors, and help enforce standards.
+
+### Don't use Javascript keywords in ways that will confuse syntax highlighters
+
+For example, don't name a method 'return', even if that's allowed by the Javascript grammar. Some emacs syntax highlighting modes will choke on that. Even if that doesn't happen, it's still grating to see it highlighted as a keyword.
+
+This goes both for actual JavaScript keywords, as well as random words don't currently have special meaning in JS, but which at some point were reserved, or rumored to be reserved, or whatever, and thus have ended up in people's syntax highlighting tables. For example, 'class'. Lists of such words can be found [here](http://stackoverflow.com/questions/26255/reserved-keywords-in-javascript).
+
+### Class pattern
+
+Prefer singleton objects to closures if there is any chance your closure might ever possibly get refactored into an object (which is often the case).
+
+Use the native Javascript system: `new` and prototypes. Begin your constructor function with (1) `var self = this`, and then (2) define every single attribute that will ever be defined on the object, in straight-line code, commenting each one. If any of them are public, indicate this in the comments. Then, define methods on the class by extending its prototype. Private methods should start with `_`. For public (API) classes, avoid private methods if possible/convenient, but don't go to extreme lengths.
+
+### Avoid setting variables to `undefined` -- instead, use `null`
+
+Reserve `undefined` to mean "argument not provided" or "no such key in object". Use `null` in other cases, especially the case where a variable's type is "Foo or nothing", eg, "`Array<String>` or `null`", "`String` or `null`" (analogous to `NULL` in C, `null` in SQL, `foo option` in ML...)
+
+### Never close over loop variables
+
+This code is broken:
+
+    for (var a in foo) {
+      stuff.push(function () {console.log(a);}); // Broken
+    }
+    _.each(stuff, function (f) {f();});
+
+If foo is `{x:1,y:2;z:3}`, it will print 'z' three times, because all three functions created inside the loop point at the same instance of the variable 'a', which will have the value it has at the end of the loop. This fix won't help:
+
+    for (var a in foo) {
+      var x = a;
+      stuff.push(function () {console.log(x);}); // Still broken
+    }
+    _.each(stuff, function (f) {f();});
+
+because Javascript has only one scope per function (it is as if it floats the definition of 'x' up to the beginning of the nearest enclosing function.) You will need to do something more aggressive:
+
+    // Use bind
+    var func = function (x) {console.log(x);};
+    for (var a in foo) {
+      stuff.push(_.bind(func, null, a)); // Works
+    }
+    _.each(stuff, function (f) {f();});
+
+    // Or a higher-order function
+    var make_func = function (x) {return function () {console.log(x);};};
+    for (var a in foo) {
+      stuff.push(make_func(a)); // Works
+    }
+    _.each(stuff, function (f) {f();});
+
+    // Or put the relevant part of the loop body in a separate function
+    var add_func = function (x) {stuff.push(function () {console.log(x);})};
+    for (var a in foo) {
+      add_func(a); // Works
+    }
+    _.each(stuff, function (f) {f();});
+
+    // Or don't use a native loop
+    _.each(_.keys(a), function (x) {
+      stuff.push(function () {console.log(x);}); // Works
+    });
+    _.each(stuff, function (f) {f();});
+
+    // Or refactor to avoid
+    for (var a in foo) {
+      console.log(a);
+    }
+
+Often, none of these alternatives will look very good. Use your discretion and creativity.
+
+### Equality Testing
+
+Always use `===`, not `==`.
+
+If you want to compare a number to a string version of said number, use `x === parseInt(y)`, `x.toString() === y`, or `x === +y`. It is much more clear what is going on. (Note that those alternatives differ in how they handle non-numeric characters or leading zeros in the string. Only the third alternative gets all the edge cases right.)

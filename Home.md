@@ -1,4 +1,3 @@
-Welcome to the Meteor project.
 
 ### Contributing code to the Meteor project
 

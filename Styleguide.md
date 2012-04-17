@@ -1,4 +1,4 @@
-# Commit messages
+### Commit messages
 
 The first line of a commit should be 50 characters or less.  This is a soft limit, so that git's command line output is more readable.  Use this line as a clear summary of the change.  Try using imperative language in this line.  A good commit message is "Add reactive variable for CPU clock speed".  Worse examples include "cpu clock speed" or "Added Meteor.CPU_speed so that we can avoid a setTimeout in the main example."
 
@@ -11,6 +11,26 @@ Subsequent lines (if any) can be fairly verbose and detailed.  Use your judgemen
 * no trailing whitespace (setq-default show-trailing-whitespace t)
 
 Emacs users should check out [js2-mode](https://github.com/mooz/js2-mode) for a nice way to avoid silly javascript errors, and help enforce standards.
+
+### Signature comment for `arguments`
+
+If a function takes more arguments than there are formal parameters (via `arguments`), comment like so:
+
+    _extend(Foo.prototype, {
+      my_variadic_function: function (/* arguments */) { ... },
+      another_variadic_function: function (x, y, z, /* arguments */) { ... },
+    });
+
+(Not `/* varargs */` -- that's a C concept.)
+
+### self rather than this
+
+For methods that are more than a line or two long, always begin with `var self = this`, and always use `self`, never `this`. Ideally, do this everywhere. (Rationale: if the method contains lambdas, it is far too easy to write `this` inside the lambda, expecting to get the outer `this`. You need to use `self` in those cases. At that point, it's too hard to remember when to use `self` and when to use `this`, so you need to use `self` everywhere.)
+
+### IE limitations
+
+Do not index into strings (no `"abc"[1]`)
+In `a = b.c; a()`; don't assume anything about `this` when `a` is called. If you need `this` to be something specific, always use bind, call, or apply. (Old IE will sometimes try to auto-bind a so that `this === b`!)
 
 ### Don't use Javascript keywords in ways that will confuse syntax highlighters
 

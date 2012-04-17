@@ -29,8 +29,7 @@ For methods that are more than a line or two long, always begin with `var self =
 
 ### IE limitations
 
-Do not index into strings (no `"abc"[1]`)
-In `a = b.c; a()`; don't assume anything about `this` when `a` is called. If you need `this` to be something specific, always use bind, call, or apply. (Old IE will sometimes try to auto-bind a so that `this === b`!)
+Do not index into strings (no `"abc"[1]` or `indexOf` on a string).  In `a = b.c; a()`; don't assume anything about `this` when `a` is called. If you need `this` to be something specific, always use bind, call, or apply. (Old IE will sometimes try to auto-bind a so that `this === b`!)
 
 ### Don't use Javascript keywords in ways that will confuse syntax highlighters
 

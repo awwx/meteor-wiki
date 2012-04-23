@@ -1,6 +1,6 @@
 ### Help
 
-See the [FAQ](FAQ).
+See the [FAQ](https://github.com/meteor/meteor/wiki/FAQ).
 Visit Stackoverflow.com, or the IRC channel(freenode.com).
 
 ### Contributing code to the Meteor project

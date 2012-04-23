@@ -19,4 +19,6 @@ First: if you're doing a Meteor.call on the client side you can pick your poison
 
 The server method definition, however, supports synchronous handling. Look [at stackoverflow](http://stackoverflow.com/questions/10251130/how-to-wait-for-sub-process-results-before-returning-from-meteor-method) for ways around this, if you need them.
 
+## Where do I have to place my image files?
+You have to put them into the /public folder (you may have to create it). 
 

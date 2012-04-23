@@ -22,3 +22,5 @@ The server method definition, however, supports synchronous handling. Look [at s
 ## Where do I have to place my image files?
 You have to put them into the /public folder (you may have to create it). 
 
+## What's the best way to add coffeescript, less, ... to my project?
+See http://docs.meteor.com/#packages

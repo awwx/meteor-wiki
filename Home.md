@@ -1,3 +1,7 @@
+### Help
+
+See the [FAQ](FAQ).
+Visit Stackoverflow.com, or the IRC channel(freenode.com).
 
 ### Contributing code to the Meteor project
 

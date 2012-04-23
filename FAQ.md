@@ -1,12 +1,12 @@
 Solved any common Meteor question? Put the answer in here!
 
-## What do I need to use meteor? Do I need node.js or mongodb?
+## What do I need to use Meteor? Do I need node.js or MongoDB?
 
 No! Just follow [the quick start guide](https://github.com/meteor/meteor). Node and Mongo come bundled with Meteor.
 
-## I heard the database isn't secured, is this true?
+## I heard the database isn't secure. Is this true?
 
-Yes and no...future versions of meteor will have more support in general for authorization. And, out of the box it is true that the client has full access to the server.
+Yes and no. Future versions of Meteor will have more support in general for authorization. And, out of the box it is true that the client has full access to the server.
 
 But, there are two ways you can secure your meteor installation:
 

@@ -9,7 +9,7 @@ Here's how we did it for the Todos sample app: XXX
 
 1. Run `meteor add accounts-ui`
 2. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
-3. Add appropriate login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
+3. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
 4. Turn off default mutators or wrap them to check permissions (see the Todos example above)
 5. You probably want to turn off autopublish (if you want to control which users see which data) 
 
@@ -17,8 +17,7 @@ Here's how we did it for the Todos sample app: XXX
 - [Client/Server] Meteor.users is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
 - [Client/Server] Within methods/subscriptions -- this.userId() returns the current e.g. privateTo in subs; e.g. check permissions in method calls (probably in server-only code)
 - [Client] Meteor.user() is a reactive function returning the current logged in user document
-- [Client] 
-- {{#if user}}Make private{{/if user}}
+- [Client] A global Handlebars helper named `user` (e.g. `{{#if user}}Make private{{/if user}}`)
 
 In addition, if you prefer not to use the login-buttons package, you can build your own login buttons using the following functions, 
 - `Meteor.loginWithFacebook(callback)`

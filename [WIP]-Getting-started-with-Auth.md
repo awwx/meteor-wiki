@@ -1,5 +1,7 @@
 ## Preface
-NOTE: Auth is currently kept on a separate [auth branch](https://github.com/meteor/meteor/tree/auth). If you want to use this functionality you need to follow the [Slow Start instructions](https://github.com/meteor/meteor#slow-start-for-developers).
+QUICK GLIMPSE: http://auth-todos.meteor.com. XXX full diff to change
+
+NOTE: Auth is currently kept on a separate [auth branch](https://github.com/meteor/meteor/tree/auth). If you want to use this functionality you need to have a local copy of the Git repository. See [Slow Start instructions](https://github.com/meteor/meteor#slow-start-for-developers) for more details.
 
 XXX explicit messaging about it not being final, and we will be available for questions, etc; if you are willing to dive into meteor, this is for you. if you want it to be 
 

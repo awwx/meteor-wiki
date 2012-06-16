@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 
 We now have the first chunk of our authentication implemented on the
 `auth` branch in GitHub (https://github.com/meteor/meteor/tree/auth).
@@ -36,9 +36,9 @@ branch.) Other services like Twitter that use OAuth1 or other
 protocols will be a bit more work.  Don't worry about user/password
 login -- we'll be taking care of that soon enough.
 
-# Getting Started
+## Getting Started
 
-## Adding Accounts to your app
+### Adding Accounts to your app
 Here's how we did it for the Todos sample app: XXX
 
 1. Run `meteor add accounts-ui`
@@ -47,29 +47,29 @@ Here's how we did it for the Todos sample app: XXX
 4. Turn off default mutators or wrap them to check permissions (see the Todos example above)
 5. You probably want to turn off autopublish (if you want to control which users see which data) 
 
-## Updates to the API
-### Basics
+### Updates to the API
+#### Basics
 - [Client/Server] `Meteor.users` is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
 - [Client/Server] Within methods/subscriptions -- `this.userId()` returns the current e.g. privateTo in subs; e.g. check permissions in method calls (probably in server-only code)
 - [Client] `Meteor.user()` is a reactive function returning the current logged in user document
 - [Client] A global Handlebars helper named `user` (e.g. `{{#if user}}Make private{{/if user}}`)
 
-### If you aren't using accounts-ui
+#### If you aren't using accounts-ui
 - [Client] `Meteor.loginWithFacebook(callback)`
 - [Client] `Meteor.loginWithGoogle(callback)`
 - [Client] `Meteor.logout(callback)`
 
-### Configuring login services
+#### Configuring login services
 - [Client/Server] `Meteor.accounts.facebook.config(appId, appUrl)`
 - [Client/Server] `Meteor.accounts.google.config(clientId, appUrl)`
 - [Server] `Meteor.accounts.facebook.setSecret(appSecret)`
 - [Server] `Meteor.accounts.google.setSecret(clientSecret)`
 
-# Integrating with Login Services
+## Integrating with Login Services
 
 Note your application's deployed URL. We'll refer to that as `APP_URL`
 
-## Facebook
+### Facebook
 1. Register your app on Facebook, noting your app id and secret, which we will refer to as to as `APP_ID` and `APP_SECRET` (More details on this below.)
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-facebook`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
@@ -82,14 +82,14 @@ Meteor.accounts.facebook.setup(APP_ID, APP_URL)
 Meteor.accounts.facebook.setSecret(APP_SECRET)
 ```
 
-### Registering your app on Facebook (step 1 above)
+#### Registering your app on Facebook (step 1 above)
 1. Go to https://developers.facebook.com/apps
 2. Click "Create new App"
 3. You only need to set a name
 4. Under "Select how your app integrates with Facebook", expand "Website with Facebook Login". Make sure to set the app URL (If you're running locally, "http://localhost:3000" works)
  
 
-## Google
+### Google
 1. Get an Google client ID, your client secret, which we will refer to as to as `CLIENT_ID` and `CLIENT_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/google?close` as a authorized redirect URI
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-google`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
@@ -103,7 +103,7 @@ Meteor.accounts.google.setSecret(CLIENT_SECRET)
 ```
 
 
-### Getting a Google client ID (step 1 above)
+#### Getting a Google client ID (step 1 above)
 1. Go to https://code.google.com/apis/console/
 2. Open the "API Access" tab
 3. Click on "Create another client ID"

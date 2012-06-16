@@ -36,13 +36,13 @@ login -- we'll be taking care of that soon enough.
 ## Getting Started
 
 ### Adding Accounts to your app
-Here's how we did it for the Todos example: https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
-
 1. Run `meteor add accounts-ui`
 2. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 3. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
 4. Turn off default mutators or wrap them to check permissions
 5. You probably want to turn off autopublish (if you want to control which users see which data) 
+
+Here's how this was done for our Todos example: https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 
 ### Updates to the API
 #### Basics

@@ -1,17 +1,8 @@
-## Preface
-QUICK GLIMPSE: http://auth-todos.meteor.com. XXX full diff to change
+# Introduction
 
-NOTE: Auth is currently kept on a separate [auth branch](https://github.com/meteor/meteor/tree/auth). If you want to use this functionality you need to have a local copy of the Git repository. See [Slow Start instructions](https://github.com/meteor/meteor#slow-start-for-developers) for more details.
+Copy email contents
 
-XXX explicit messaging about it not being final, and we will be available for questions, etc; if you are willing to dive into meteor, this is for you. if you want it to be 
-
-
-XXX the interface isn't totally fleshed
-e.g. allow account providers to register the login ui
-Play with it, tell us: Does this work for your app, what changes do you need?
-Write auth providers: Make it clear that we will do email/password, we'll be available to help with writing other new providers.
-add a note 
-
+# Getting Started
 
 ## Adding Accounts to your app
 1. Run `meteor add accounts-ui`
@@ -47,11 +38,11 @@ rename login-buttons to accounts-ui
 
 
 
-### Integrating with Login Services
+# Integrating with Login Services
 
 Note your application's deployed URL. We'll refer to that as `APP_URL`
 
-#### Facebook
+## Facebook
 1. Register your app on Facebook, noting your app id and secret, which we will refer to as to as `APP_ID` and `APP_SECRET` (More details on this below.)
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-facebook`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
@@ -64,14 +55,14 @@ Meteor.accounts.facebook.setup(APP_ID, APP_URL)
 Meteor.accounts.facebook.setSecret(APP_SECRET)
 ```
 
-##### Registering your app on Facebook (step 1 above)
+### Registering your app on Facebook (step 1 above)
 1. Go to https://developers.facebook.com/apps
 2. Click "Create new App"
 3. You only need to set a name
 4. Under "Select how your app integrates with Facebook", expand "Website with Facebook Login". Make sure to set the app URL (If you're running locally, "http://localhost:3000" works)
  
 
-#### Google
+## Google
 1. Get an Google client ID, your client secret, which we will refer to as to as `CLIENT_ID` and `CLIENT_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/google?close` as a authorized redirect URI
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-google`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
@@ -85,7 +76,7 @@ Meteor.accounts.google.setSecret(CLIENT_SECRET)
 ```
 
 
-##### Getting a Google client ID (step 1 above)
+### Getting a Google client ID (step 1 above)
 1. Go to https://code.google.com/apis/console/
 2. Open the "API Access" tab
 3. Click on "Create another client ID"

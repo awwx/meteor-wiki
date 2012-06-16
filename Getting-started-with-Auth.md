@@ -36,7 +36,7 @@ login -- we'll be taking care of that soon enough.
 ## Getting Started
 
 ### Adding Accounts to your app
-Here's how we did it for the Todos sample app: https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
+Here's how we did it for the Todos example: https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 
 1. Run `meteor add accounts-ui`
 2. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.

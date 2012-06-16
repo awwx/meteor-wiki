@@ -36,12 +36,12 @@ login -- we'll be taking care of that soon enough.
 ## Getting Started
 
 ### Adding Accounts to your app
-Here's how we did it for the Todos sample app: XXX
+Here's how we did it for the Todos sample app: https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 
 1. Run `meteor add accounts-ui`
 2. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 3. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
-4. Turn off default mutators or wrap them to check permissions (see the Todos example above)
+4. Turn off default mutators or wrap them to check permissions
 5. You probably want to turn off autopublish (if you want to control which users see which data) 
 
 ### Updates to the API
@@ -108,4 +108,3 @@ Meteor.accounts.google.setSecret(CLIENT_SECRET)
 5. Authorized Redirect URIs: If your app is on 'http://localhost:3000' this should contain 'http://localhost:3000/_oauth/google?close'
 6. Authorized JavaScript origins: 'http://localhost:3000'
 7. Click on 'Create Client ID'
-

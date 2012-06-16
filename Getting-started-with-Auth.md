@@ -25,14 +25,6 @@ Each user who is logged into todos can now mark items as private,
 which no other user can see or modify.  The full diff is here:
 https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 
-One thing we could use help with right away is integrating with the
-other major login services.  The Google and Facebook packages use an
-OAuth2 abstraction, so other OAuth2 services should be
-straightforward.  (Please submit auth pull requests against the auth
-branch.) Other services like Twitter that use OAuth1 or other
-protocols will be a bit more work.  Don't worry about user/password
-login -- we'll be taking care of that soon enough.
-
 ## Getting Started
 
 ### Adding Accounts to your app

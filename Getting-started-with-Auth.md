@@ -47,7 +47,7 @@ Here's how this was done for our Todos example: https://github.com/meteor/meteor
 ### Updates to the API
 #### Basics
 - [Client/Server] `Meteor.users` is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
-- [Client/Server] Within methods/subscriptions -- `this.userId()` returns the current e.g. privateTo in subs; e.g. check permissions in method calls (probably in server-only code)
+- [Client/Server] Within methods/subscriptions -- `this.userId()` returns the current user ID
 - [Client] `Meteor.user()` is a reactive function returning the current logged in user document
 - [Client] A global Handlebars helper named `user` (e.g. `{{#if user}}Make private{{/if user}}`)
 

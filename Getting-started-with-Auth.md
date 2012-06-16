@@ -19,22 +19,16 @@ Here's how we did it for the Todos sample app: XXX
 - [Client] Meteor.user() is a reactive function returning the current logged in user document
 - [Client] A global Handlebars helper named `user` (e.g. `{{#if user}}Make private{{/if user}}`)
 
-In addition, if you prefer not to use the login-buttons package, you can build your own login buttons using the following functions, 
+In addition, if you prefer not to use the login-buttons package, you can build your own login buttons using the following functions, all of which receive an optional callback argument that gets called if the login/logout is successful.
 - `Meteor.loginWithFacebook(callback)`
-- `Meteor.loginWithGoogle()`
-- `Meteor.logout()`
+- `Meteor.loginWithGoogle(callback)`
+- `Meteor.logout(callback)`
 
-And the provider setup functions XXX
-
-
-
-Some description of the internal APIs?
-The oauth package API
-Package list: oauth2, accounts, accounts-google, accounts-facebook, login-buttons
-make oauth2 internal
-rename login-buttons to accounts-ui
-
-
+To configure login services:
+- [Client/Server] Meteor.accounts.facebook.config(appId, appUrl)
+- [Client/Server] Meteor.accounts.google.config(clientId, appUrl)
+- [Server] Meteor.accounts.facebook.setSecret(appSecret)
+- [Server] Meteor.accounts.google.setSecret(clientSecret)
 
 # Integrating with Login Services
 

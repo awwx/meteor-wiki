@@ -20,26 +20,20 @@ add a note
 4. Turn off default mutators (XXX do we just point to the madewith example?)
 5. You probably want to turn off autopublish (if you want to control which users see which data) 
 
-## New APIs
-LIST OF NEW APIs
-Users collection (Meteor.users)
-By default, the name, email of the current user is published to the client
-You can choose to publish additional fields, such as the facebook identity details
-XXX describe structure
-[Client] Meteor.user() [xcxc describe default subscription]
-CHANGE! - send down all fields other than services and private
-If you have autopublish turned on, still send down all users (without services and private)
-[Client/Server] Within methods/subscriptions -- this.userId()
-e.g. privateTo in subs
-e.g. check permissions in method calls (probably in server-only code)
-{{#if user}}Make private{{/if user}}
+## Updates to the API
+- Users collection (Meteor.users)
+- By default, the name, email of the current user is published to the client
+- You can choose to publish additional fields, such as the facebook identity details XXX describe structure
+- [Client] Meteor.user() [xcxc describe default subscription]
+- [Client/Server] Within methods/subscriptions -- this.userId() e.g. privateTo in subs; e.g. check permissions in method calls (probably in server-only code)
+- {{#if user}}Make private{{/if user}}
 
 In addition, if you prefer not to use the login-buttons package, you can build your own login buttons using:
-Meteor.loginWithFacebook()
-describe callback
-Meteor.loginWithGoogle()
+`Meteor.loginWithFacebook()`
+XXX describe callback
+`Meteor.loginWithGoogle()`
 same
-Meteor.logout()
+`Meteor.logout()`
 
 And the provider setup functions XXX
 

@@ -5,26 +5,25 @@ Copy email contents
 # Getting Started
 
 ## Adding Accounts to your app
+Here's how we did it for the Todos sample app: XXX
+
 1. Run `meteor add accounts-ui`
 2. Add {{> loginButtons}} somewhere in your app
 3. Add appropriate login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
-4. Turn off default mutators (XXX do we just point to the madewith example?)
+4. Turn off default mutators or wrap them to check permissions (see the Todos example above)
 5. You probably want to turn off autopublish (if you want to control which users see which data) 
 
 ## Updates to the API
-- Users collection (Meteor.users)
-- By default, the name, email of the current user is published to the client
-- You can choose to publish additional fields, such as the facebook identity details XXX describe structure
-- [Client] Meteor.user() [xcxc describe default subscription]
-- [Client/Server] Within methods/subscriptions -- this.userId() e.g. privateTo in subs; e.g. check permissions in method calls (probably in server-only code)
+- [Client/Server] Meteor.users is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
+- [Client/Server] Within methods/subscriptions -- this.userId() returns the current e.g. privateTo in subs; e.g. check permissions in method calls (probably in server-only code)
+- [Client] Meteor.user() is a reactive function returning the current logged in user document
+- [Client] 
 - {{#if user}}Make private{{/if user}}
 
-In addition, if you prefer not to use the login-buttons package, you can build your own login buttons using:
-`Meteor.loginWithFacebook()`
-XXX describe callback
-`Meteor.loginWithGoogle()`
-same
-`Meteor.logout()`
+In addition, if you prefer not to use the login-buttons package, you can build your own login buttons using the following functions, 
+- `Meteor.loginWithFacebook(callback)`
+- `Meteor.loginWithGoogle()`
+- `Meteor.logout()`
 
 And the provider setup functions XXX
 

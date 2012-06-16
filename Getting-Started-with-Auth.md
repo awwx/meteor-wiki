@@ -34,8 +34,6 @@ https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 4. Turn off default mutators or wrap them to check permissions (here's [what we did for todos](https://github.com/meteor/meteor/blob/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f/examples/todos/server/access_control.js))
 5. You probably want to turn off autopublish (if you want to control which users see which data) 
 
-Here's how this was done for our Todos example: https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
-
 ### Updates to the API
 #### Basics
 - [Client/Server] `Meteor.users` is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.

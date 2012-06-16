@@ -35,6 +35,7 @@ straightforward.  (Please submit auth pull requests against the auth
 branch.) Other services like Twitter that use OAuth1 or other
 protocols will be a bit more work.  Don't worry about user/password
 login -- we'll be taking care of that soon enough.
+
 # Getting Started
 
 ## Adding Accounts to your app

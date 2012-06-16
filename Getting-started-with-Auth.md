@@ -8,7 +8,7 @@ Copy email contents
 Here's how we did it for the Todos sample app: XXX
 
 1. Run `meteor add accounts-ui`
-2. Add {{> loginButtons}} somewhere in your app
+2. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 3. Add appropriate login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
 4. Turn off default mutators or wrap them to check permissions (see the Todos example above)
 5. You probably want to turn off autopublish (if you want to control which users see which data) 

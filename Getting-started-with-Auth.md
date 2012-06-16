@@ -35,6 +35,8 @@ Here's how we did it for the Todos sample app: XXX
 
 Note your application's deployed URL. We'll refer to that as `APP_URL`
 
+>?xcxc
+
 ## Facebook
 1. Register your app on Facebook, noting your app id and secret, which we will refer to as to as `APP_ID` and `APP_SECRET` (More details on this below.)
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-facebook`

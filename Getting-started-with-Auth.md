@@ -1,7 +1,40 @@
 # Introduction
 
-Copy email contents
+We now have the first chunk of our authentication implemented on the
+`auth` branch in GitHub (https://github.com/meteor/meteor/tree/auth).
 
+Here are the high-level changes:
+
+ 1: As part of livedata, method and subscription functions on the
+server now have access to the current user ID with `this.userId()`.
+This means you can limit what a method does and what data a publish
+function sends to the client based on each client's login state.
+Since subscriptions are long-lived, Meteor reruns a client's
+subscriptions when its user ID changes (eg login or logout).
+
+ 2: The "accounts" smart package defines a new Meteor.Collection
+called "users".  We've written two smart packages that use Facebook or
+Google login services (over OAuth2) to manage the current user.
+
+ 3: The "accounts-ui" smart package provides convenient chrome on the
+client for login buttons {{> loginButtons}}.
+
+As an example of these new features, we've added "private" items to
+the Todos example, which can be seen at http://auth-todos.meteor.com.
+Each user who is logged into todos can now mark items as private,
+which no other user can see or modify.  The full diff is here:
+https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
+
+A fuller description of the new accounts APIs is here:
+https://github.com/meteor/meteor/wiki/Getting-started-with-Auth
+
+One thing we could use help with right away is integrating with the
+other major login services.  The Google and Facebook packages use an
+OAuth2 abstraction, so other OAuth2 services should be
+straightforward.  (Please submit auth pull requests against the auth
+branch.) Other services like Twitter that use OAuth1 or other
+protocols will be a bit more work.  Don't worry about user/password
+login -- we'll be taking care of that soon enough.
 # Getting Started
 
 ## Adding Accounts to your app
@@ -77,5 +110,4 @@ Meteor.accounts.google.setSecret(CLIENT_SECRET)
 5. Authorized Redirect URIs: If your app is on 'http://localhost:3000' this should contain 'http://localhost:3000/_oauth/google?close'
 6. Authorized JavaScript origins: 'http://localhost:3000'
 7. Click on 'Create Client ID'
-
 

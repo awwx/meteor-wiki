@@ -28,7 +28,7 @@ https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 ## Getting Started
 
 ### Adding Accounts to your app
-1. Run `meteor add accounts-ui`
+1. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`
 2. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 3. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
 4. Turn off default mutators or wrap them to check permissions (here's [what we did for todos](https://github.com/meteor/meteor/blob/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f/examples/todos/server/access_control.js))

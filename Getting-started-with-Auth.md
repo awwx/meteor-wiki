@@ -48,7 +48,7 @@ Here's how this was done for our Todos example: https://github.com/meteor/meteor
 - [Client] `Meteor.loginWithGoogle(callback)`
 - [Client] `Meteor.logout(callback)`
 
-#### Configuring login services
+#### Configuring login services (see section below)
 - [Client/Server] `Meteor.accounts.facebook.config(appId, appUrl)`
 - [Client/Server] `Meteor.accounts.google.config(clientId, appUrl)`
 - [Server] `Meteor.accounts.facebook.setSecret(appSecret)`

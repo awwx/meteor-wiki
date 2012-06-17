@@ -5,18 +5,18 @@ We now have the first chunk of our authentication implemented on the
 
 Here are the high-level changes:
 
- 1: As part of livedata, method and subscription functions on the
+1. As part of livedata, method and subscription functions on the
 server now have access to the current user ID with `this.userId()`.
 This means you can limit what a method does and what data a publish
 function sends to the client based on each client's login state.
 Since subscriptions are long-lived, Meteor reruns a client's
 subscriptions when its user ID changes (eg login or logout).
 
- 2: The "accounts" smart package defines a new Meteor.Collection
+2. The "accounts" smart package defines a new Meteor.Collection
 called "users".  We've written two smart packages that use Facebook or
 Google login services (over OAuth2) to manage the current user.
 
- 3: The "accounts-ui" smart package provides convenient chrome on the
+3. The "accounts-ui" smart package provides convenient chrome on the
 client for login buttons {{> loginButtons}}.
 
 As an example of these new features, we've added "private" items to

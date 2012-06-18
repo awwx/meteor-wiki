@@ -57,7 +57,7 @@ https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 Note your application's deployed URL. We'll refer to that as `APP_URL`
 
 ### Facebook
-1. Register your app on Facebook, noting your app id and secret, which we will refer to as to as `APP_ID` and `APP_SECRET` (More details on this below.)
+1. Register your app on Facebook, noting your app ID and secret, which we will refer to as to as `APP_ID` and `APP_SECRET` (More details on this below.)
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-facebook`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
 ```
@@ -74,10 +74,10 @@ Meteor.accounts.facebook.setSecret(APP_SECRET)
 2. Click "Create new App"
 3. You only need to set a name
 4. Under "Select how your app integrates with Facebook", expand "Website with Facebook Login". Make sure to set the app URL (If you're running locally, "http://localhost:3000" works)
- 
+
 
 ### Google
-1. Get an Google client ID, your client secret, which we will refer to as to as `CLIENT_ID` and `CLIENT_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/google?close` as a authorized redirect URI
+1. Get an Google client ID and secret, which we will refer to as to as `CLIENT_ID` and `CLIENT_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/google?close` as a authorized redirect URI
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-google`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
 ```
@@ -95,6 +95,6 @@ Meteor.accounts.google.setSecret(CLIENT_SECRET)
 2. Open the "API Access" tab
 3. Click on "Create another client ID"
 4. Click on "More options"
-5. Authorized Redirect URIs: If your app is on 'http://localhost:3000' this should contain 'http://localhost:3000/_oauth/google?close'
-6. Authorized JavaScript origins: 'http://localhost:3000'
+5. Authorized Redirect URIs: Should contain APP_URL/_oauth/google?close
+6. Authorized JavaScript origins: APP_URL
 7. Click on 'Create Client ID'

@@ -28,11 +28,12 @@ https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 ## Getting Started
 
 ### Adding Accounts to your app
-1. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`
-2. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
-3. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
-4. Turn off default mutators or wrap them to check permissions (here's [what we did for todos](https://github.com/meteor/meteor/blob/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f/examples/todos/server/access_control.js))
-5. You probably want to turn off autopublish (if you want to control which users see which data) 
+1. [Get Meteor running from a git checkout](https://github.com/meteor/meteor#slow-start-for-developers). Checkout the `auth` branch.
+2. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`
+3. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
+4. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
+5. Turn off default mutators or wrap them to check permissions (here's [what we did for todos](https://github.com/meteor/meteor/blob/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f/examples/todos/server/access_control.js))
+6. You probably want to turn off autopublish (if you want to control which users see which data) 
 
 ### Updates to the API
 #### Basics

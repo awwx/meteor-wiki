@@ -45,14 +45,6 @@ Handlebars.registerHelper("foo", function() {
 });
 ```
 
-### Expression Arguments
-
-Handlebars expressions can have arguments separated by spaces, which will be passed to the helper (or method) given by the initial identifier.  Handlebars also support keyword arguments (name=value) which are passed to the helper in a hash.
-
-XXX: How are they received as function arguments in the helper implementation?  What about in a method?
-
-Arguments can be helpers or methods themselves, or string literals.  XXX: Anything else?
-
 ### Reserved Helper Names
 
 Unfortunately, since `Template.myTemplate` is a function object as well as a place to bind helpers, some helper names are illegal.  For example, the name `name` is problematic because in many browsers, functions have a built-in `name` property that you can't change (it's whatever name the function was given in the source code).  When you try to assign `Template.myTemplate.name` to a function, nothing happens!
@@ -88,4 +80,12 @@ In a case like `{{../foo}}` where `foo` is a function, the value of `this` insid
 ### Nonexistent Identifiers
 
 Handlebars paths that name nonexistent properties silently evaluate to the empty string, even if they are nested.  `{{abc.def.ghi}}` evaluates to `""` and doesn't fail even if there is no property or helper called `abc`.
+
+### Expression Arguments
+
+Handlebars expressions can have arguments separated by spaces, which will be passed to the helper (or method) given by the initial identifier.  Handlebars also support keyword arguments (name=value) which are passed to the helper in a hash.
+
+XXX: How are they received as function arguments in the helper implementation?  What about in a method?
+
+Arguments can be helpers or methods themselves, or string literals.  XXX: Anything else?
 

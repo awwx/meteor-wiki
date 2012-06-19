@@ -49,11 +49,11 @@ Handlebars.registerHelper("foo", function() {
 
 Unfortunately, since `Template.myTemplate` is a function object as well as a place to bind helpers, some helper names are illegal.  For example, the name `name` is problematic because in many browsers, functions have a built-in `name` property that you can't change (it's whatever name the function was given in the source code).  When you try to assign `Template.myTemplate.name` to a function, nothing happens!
 
-Helper names to avoid include built-in function properties like `name`, `length`, `arity`, `arguments`, and `caller`, as well as methods like `call` and `apply`.  Note that it is only helpers, not properties of the context object, that have this problem.
+Avoid naming a helper `name`, `length`, `arity`, `arguments`, `caller`, `call`, or `apply` (to name a few).  Only helpers have this problem; you can call the properties of your data context object whatever you want.
 
 ### Expressions with Dots
 
-Handlebars allows expressions of the form `{{foo.bar}}`, which in the basic case means `data.foo.bar`.  With function/value coercion (see next section), it can also mean `data.foo.bar()`, `data.foo().bar`, or `data.foo().bar()`.  If there exists a helper `foo`, the helper is called instead to evalute the first segment of the expression.  Multi-segment expressions can take arguments, as in `{{foo.bar baz}}`, where `baz` will be passed as an argument to `bar` if `bar` is a function.
+Handlebars allows expressions of the form `{{foo.bar}}`, which in the basic case means `data.foo.bar`.  With function/value coercion (see next section), it can also mean `data.foo.bar()`, `data.foo().bar`, or `data.foo().bar()`.  If there exists a helper `foo`, the helper is called instead to evalute the first segment of the expression.  Multi-segment expressions can take arguments, as in `{{foo.bar baz}}`, where `baz` will be passed as an argument to `bar` (though only if `bar` is a function).
 
 The expression `{{this}}` evaluates to the current data context.  Paths starting with `this` always refer to properties of the current data context and not to helpers.
 
@@ -73,9 +73,9 @@ Also, properties of the context object can be functions, in which case they are 
 data.foo = function() { return "blah"; };
 ```
 
-In a multi-segment expression, each segment is called if it is a function.  Take `{{foo.bar.baz}}` as an example.  The identifier `foo` refers either to a helper function, a constant template property, or to a property or getter method of the current data context.  If it's a helper or a getter, the function is called with no arguments and the current data context as `this`.  We expect the result to be an object with a `bar` property.  If the `bar` property is a function (a getter method), it is called with no arguments and *the object it came from* as `this`.  This is a Meteor extension to Handlebars to support getters.
+In a multi-segment expression, each segment is called if it is a function, and used for its value otherwise.  Take `{{foo.bar.baz}}` as an example.  The identifier `foo` refers either to a helper function, a constant template property, or to a property or getter method of the current data context.  If it's a helper or a getter, the function is called with no arguments and the current data context as `this`.  We expect the result to be an object with a `bar` property.  If the `bar` property is a function (a getter method), it is called with no arguments *on the object it came from*.  That is, whenever we call a function `bar` that isn't a helper but was a property of some object `foo` or `foo()`, we set `this` to that object.  In the expression `{{../foo}}`, `this` will be set to the parent context `..`.
 
-In a case like `{{../foo}}` where `foo` is a function, the value of `this` inside the function is the parent context (`..`) and not the current context, as you would expect.
+This is a Meteor extension to Handlebars to support getters.
 
 ### Nonexistent Identifiers
 

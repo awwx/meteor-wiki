@@ -39,7 +39,7 @@ https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 #### Basics
 - [Client/Server] `Meteor.users` is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
 - [Client/Server] Within methods/subscriptions -- `this.userId()` returns the current user ID
-- [Client] `Meteor.user()` is a reactive function returning the current logged in user document
+- [Client] `Meteor.user()` is a reactive function returning the current logged in user document, or null if the user is logged out
 - [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
 
 #### If you aren't using accounts-ui

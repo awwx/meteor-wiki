@@ -27,6 +27,9 @@ https://github.com/meteor/meteor/commit/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f
 
 ## Getting Started
 
+### Warning
+The `auth` branch is a work in progress. The features and API may change at any time.
+
 ### Adding Accounts to your app
 1. [Get Meteor running from a git checkout](https://github.com/meteor/meteor#slow-start-for-developers). Checkout the `auth` branch.
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`

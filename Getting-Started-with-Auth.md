@@ -65,7 +65,7 @@ Note your application's deployed URL. We'll refer to that as `APP_URL`
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-facebook`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
 ```
-Meteor.accounts.facebook.setup(APP_ID, APP_URL)
+Meteor.accounts.facebook.config(APP_ID, APP_URL)
 ```
 
 4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:
@@ -85,7 +85,7 @@ Meteor.accounts.facebook.setSecret(APP_SECRET)
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-google`
 3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
 ```
-Meteor.accounts.google.setup(CLIENT_ID, APP_URL)
+Meteor.accounts.google.config(CLIENT_ID, APP_URL)
 ```
 
 4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:

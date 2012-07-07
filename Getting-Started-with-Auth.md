@@ -49,7 +49,7 @@ The `auth` branch is a work in progress. The features and API may change at any 
 By default, clients are given full write access to all collections. To turn this behavior off, remove the `insecure` package
 
 #### Restricting writes
-[Server] `collection.allow(options)` Restricts default mutator methods on this collection. Once this is called, all write methods on this collection are secured. Multiple calls add more restrictions. Works with or without the `insecure` package.
+[Server] `collection.allow(options)` Restricts default write methods on this collection. Once this is called, all write methods on this collection are secured. Multiple calls add more restrictions. Works with or without the `insecure` package.
 
 Options:
 - `insert` (Function(userId, doc)) - Return true to allow user to insert document

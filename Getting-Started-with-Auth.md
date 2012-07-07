@@ -45,8 +45,11 @@ The `auth` branch is a work in progress. The features and API may change at any 
 - [Client] `Meteor.user()` is a reactive function returning the current logged in user document, or null if the user is logged out
 - [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
 
+#### Disabling full write access
+By default, clients are given full write access to all collections. To turn this behavior off, remove the `insecure` package
+
 #### Restricting writes
-[Server] `collection.allow(options)` Restricts default mutator methods on this collection. Once this is called, all write methods on this collection are secured. Multiple calls yield stricter restrictions.
+[Server] `collection.allow(options)` Restricts default mutator methods on this collection. Once this is called, all write methods on this collection are secured. Multiple calls add more restrictions.
 
 Options:
 - `insert` (Function(userId, doc)) - Return true to allow user to insert document

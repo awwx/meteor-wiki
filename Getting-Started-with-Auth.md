@@ -35,7 +35,7 @@ The `auth` branch is a work in progress. The features and API may change at any 
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`
 3. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 4. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
-5. Turn off default mutators or wrap them to check permissions (here's [what we did for todos](https://github.com/meteor/meteor/blob/5ac6ee0d6edbfe3cce93ad3eb50274904968f06f/examples/todos/server/access_control.js))
+5. Turn off default mutators or wrap them to check permissions (here's [what we did for todos](https://github.com/meteor/meteor/blob/171816005fa2e263ba54d08d596e5b94dea47b0d/examples/todos/server/access_control.js))
 6. You probably want to turn off autopublish (if you want to control which users see which data) 
 
 ### Updates to the API

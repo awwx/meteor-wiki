@@ -45,6 +45,18 @@ The `auth` branch is a work in progress. The features and API may change at any 
 - [Client] `Meteor.user()` is a reactive function returning the current logged in user document, or null if the user is logged out
 - [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
 
+#### Restricting writes
+[Server] `collection.allow(options)` Restricts default mutator methods on this collection. Once this is called, all write methods on this collection are secured. Multiple calls yield stricter restrictions.
+
+Options:
+- `insert` (Function(userId, doc)) - Return true to allow user to insert document
+- `update` (Function(userId, docs, fields, modifier)) - Return true to allow user to update documents
+ - `fields` - Array of fields to be modified
+ - `modifier` - Original mongo [modifier operation](http://www.mongodb.org/display/DOCS/Updating#Updating-ModifierOperations)
+- `remove` (Function(userId, docs)) - Return true to allow user to remove documents
+- `fetch` (Array) - Fields to be fetched for update and remove restrictions (if not passed, all fields will be fetched)
+
+
 #### If you aren't using accounts-ui
 - [Client] `Meteor.loginWithFacebook(callback)`
 - [Client] `Meteor.loginWithGoogle(callback)`

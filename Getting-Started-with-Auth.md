@@ -23,7 +23,7 @@ As an example of these new features, we've added "private" items to
 the Todos example, which can be seen at http://auth-todos.meteor.com.
 Each user who is logged into todos can now mark items as private,
 which no other user can see or modify.  The full diff is here:
-https://github.com/meteor/meteor/commit/a8dd0ba2015482fbeeef7bfcbc704dbbe00b73e2
+https://github.com/meteor/meteor/commit/171816005fa2e263ba54d08d596e5b94dea47b0d
 
 ## Getting Started
 

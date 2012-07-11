@@ -61,15 +61,18 @@ Options:
 
 
 #### If you aren't using accounts-ui
-- [Client] `Meteor.loginWithFacebook(callback)`
-- [Client] `Meteor.loginWithGoogle(callback)`
-- [Client] `Meteor.logout(callback)`
+- [Client] `Meteor.loginWithFacebook()`
+- [Client] `Meteor.loginWithGoogle()`
+- [Client] `Meteor.logout()`
 
 #### Configuring login services (see section below)
-- [Client/Server] `Meteor.accounts.facebook.config(appId, appUrl)`
-- [Client/Server] `Meteor.accounts.google.config(clientId, appUrl)`
+- [Client/Server] `Meteor.accounts.facebook.config(appId, appUrl, options)`
+- [Client/Server] `Meteor.accounts.google.config(clientId, appUrl, options)`
 - [Server] `Meteor.accounts.facebook.setSecret(appSecret)`
 - [Server] `Meteor.accounts.google.setSecret(clientSecret)`
+
+Options:
+- scope: a list of permissions to request when logging in. For example, on Facebook: `scope: ["user_birthday", "user_checkins"]`. On Google: `scope: ["https://www.googleapis.com/auth/calendar"]`
 
 ## Integrating with Login Services
 

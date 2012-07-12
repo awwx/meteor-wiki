@@ -118,7 +118,7 @@ Template.myTemplate.myblock = function(options) {
 };
 ```
 
-Calling `options.fn` executes the block.  It's a function that takes a data object to use as the data context (`this`) inside the block, which you should provide, passing `this` if you want to keep the same data context.  It returns the HTML that resulted from evaluating the block.  In Meteor, the HTML may also contain HTML comments around, or instead of, some content.  Because they operate at the level of fully-processed HTML, block helpers are not intended for post-processing the HTML but rather for control flow constructs (like ifs and loops).
+Calling `options.fn` executes the block.  It's a function that takes a data object to use as the data context inside the block, which you should provide; pass `this` if you want to keep the same data context.  It returns the HTML that resulted from evaluating the block.  In Meteor, the HTML may also contain HTML comments around, or instead of, some content.  Because they operate at the level of fully-processed HTML, block helpers are not intended for post-processing the HTML but rather for control flow constructs (like ifs and loops).
 
 Blocks also may take arguments and else cases:
 

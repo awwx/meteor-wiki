@@ -105,3 +105,7 @@ Often, none of these alternatives will look very good. Use your discretion and c
 Always use `===`, not `==`.
 
 If you want to compare a number to a string version of said number, use `x === parseInt(y)`, `x.toString() === y`, or `x === +y`. It is much more clear what is going on. (Note that those alternatives differ in how they handle non-numeric characters or leading zeros in the string. Only the third alternative gets all the edge cases right.)
+
+### Error objects
+
+All errors that are thrown or passed to callbacks should all be instances of `Error`. They should not be instances of `Meteor.Error` unless they are errors meant to go over the wire via DDP. That is, only use a `Meteor.Error` to specifically tell the client something, not to indicate a programming error or an unexpected condition in common code.

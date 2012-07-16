@@ -123,3 +123,25 @@ Meteor.accounts.google.setSecret(CLIENT_SECRET);
 5. Authorized Redirect URIs: Should contain APP_URL/_oauth/google?close
 6. Authorized JavaScript origins: APP_URL
 7. Click on 'Create Client ID'
+
+
+### Weibo
+1. Get an Weibo client ID and secret, which we will refer to as to as `CLIENT_ID` and `CLIENT_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/weibo?close` as a authorized redirect URI
+2. Run `PATH_TO_CHECKOUT/meteor add accounts-weibo`
+3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
+```
+Meteor.accounts.weibo.config(CLIENT_ID, APP_URL);
+```
+
+4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:
+```
+Meteor.accounts.weibo.setSecret(CLIENT_SECRET);
+```
+
+
+#### Getting a Weibo client ID (step 1 above)
+1. Go to http://open.weibo.com/development
+2. Click the "创建应用" button
+3. Follow the guide to create an application
+4. Authorized Redirect URIs: Should contain APP_URL/_oauth/weibo?close
+5. Their `App Key` is `CLIENT_ID` we need, and `App Secret` is `CLIENT_SECRET`

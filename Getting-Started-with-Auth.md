@@ -12,12 +12,13 @@ function sends to the client based on each client's login state.
 Since subscriptions are long-lived, Meteor reruns a client's
 subscriptions when its user ID changes (eg login or logout).
 
-2. The "accounts" smart package defines a new Meteor.Collection
-called "users".  We've written two smart packages that use Facebook or
-Google login services (over OAuth2) to manage the current user.
+2. The "accounts" smart package defines a new Meteor.Collection called
+"users".  We've written several packages that manage this collection
+using both third party services such Facebook and Google (via OAuth2)
+and old fashioned usernames and passwords.
 
 3. The "accounts-ui" smart package provides convenient chrome on the
-client for login buttons {{> loginButtons}}.
+client for a login form {{> loginButtons}}.
 
 As an example of these new features, we've added "private" items to
 the Todos example, which can be seen at http://auth-todos.meteor.com.
@@ -34,7 +35,7 @@ The `auth` branch is a work in progress. The features and API may change at any 
 1. [Get Meteor running from a git checkout](https://github.com/meteor/meteor#slow-start-for-developers). Checkout the `auth` branch.
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`
 3. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
-4. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook`)
+4. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook accounts-passwords`)
 5. Restrict writes (here's [what we did for todos](https://github.com/meteor/meteor/blob/171816005fa2e263ba54d08d596e5b94dea47b0d/examples/todos/server/access_control.js))
 6. You probably want to turn off autopublish (if you want to control which users see which data) 
 
@@ -66,6 +67,17 @@ Options:
 #### If you aren't using accounts-ui
 - [Client] `Meteor.loginWithFacebook()`
 - [Client] `Meteor.loginWithGoogle()`
+- [Client] `Meteor.loginWithPassword(user, password, callback)`
+ - `user` argument is either `{username: 'username'}`, `{email: 'email@address'}`, or a string that might be username or email.
+ - `password`: the plaintext password. The password is _not_ sent unencrypted, though.
+ - `callback`: Function(error|null)
+- [Client] `Meteor.createUser(options, extra, callback)`
+ - `options` a hash containing: `username` and/or `email`, `password`
+ - `extra`: extra fields for the user object (eg `name`, etc).
+ - `callback`: Function(error|null)
+- [Client] `Meteor.changePassword(oldPassword, newPassword, callback)`
+ - `callback`: Function(error|null)
+ - Must be logged in to call this. Changes the currently logged in user.
 - [Client] `Meteor.logout()`
 
 #### Configuring login services (see section below)
@@ -76,6 +88,21 @@ Options:
 
 Options:
 - scope: a list of permissions to request when logging in. For example, on Facebook: `scope: ["user_birthday", "user_checkins"]`. On Google: `scope: ["https://www.googleapis.com/auth/calendar"]`
+
+
+#### Controlling new user creation
+
+- [Server] `Meteor.accounts.validateNewUser(validator)`
+ - `validator`: Function(proposedUser). returns true to allow user creation, false to deny.
+ - Can be called multiple times. All validators must pass for the user to be created.
+- [Server] `Meteor.accounts.onCreateUser(Function(options, extra, user))`
+ - `options`: Basic parameters for user creation. eg `username`, `email`.
+ - `extra`: extra fields proposed for the new user. straight from the client. eg `name`.
+ - `user`: A pre-processed user object with transformed options.
+ - return value of function: a proposed user object, with all fields filled out. This can be based on the user object passed in, or constructed totally differently. throw an error to abort user creation.
+ - This can only be set once. If it is not set, the default implementation simply copies the 'extra' fields into the user object.
+
+
 
 ## Integrating with Login Services
 

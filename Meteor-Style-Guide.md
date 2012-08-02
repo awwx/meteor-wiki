@@ -48,16 +48,16 @@ Originally Meteor used a different convention, in which underscores were sometim
 
 Use this brace style:
 
-  if (a < 0) {
-    console.log("a is negative");
-    handleNegativeA();
-  } else if (a > 0) {
-    console.log("a is positive");
-    handlePositiveA();
-  } else {
-    console.log("a is zero or NaN");
-    handleOtherA();
-  }
+    if (a < 0) {
+      console.log("a is negative");
+      handleNegativeA();
+    } else if (a > 0) {
+      console.log("a is positive");
+      handlePositiveA();
+    } else {
+      console.log("a is zero or NaN");
+      handleOtherA();
+    }
 
 ### Braces are optional around single-statement blocks
 

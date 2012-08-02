@@ -81,6 +81,20 @@ It's OK to have braces in one branch of an if..else construct, and not another:
     } else
       throw new Error("No widget trading for you");
 
+### Always use semicolons; beware semicolon insertion when breaking lines
+
+JavaScript permits semicolons to be omitted sometimes at the end of statements. Don't do this.
+
+When breaking lines you must be careful to avoid the JavaScript semicolon insertion feature. For example, this code:
+
+    return
+      doSomething() * 2 + 27;
+
+will be interpreted by JavaScript as:
+
+    return;
+    doSomething() * 2 + 27;
+
 ### Signature comment for `arguments`
 
 If a function takes more arguments than there are formal parameters (via `arguments`), comment like so:

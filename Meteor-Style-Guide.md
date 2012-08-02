@@ -90,7 +90,7 @@ When breaking lines you must be careful to avoid the JavaScript semicolon insert
     return
       doSomething() * 2 + 27;
 
-will be interpreted by JavaScript as:
+will be interpreted in JavaScript as:
 
     return;
     doSomething() * 2 + 27;

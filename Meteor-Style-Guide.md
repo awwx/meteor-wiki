@@ -7,18 +7,85 @@ Subsequent lines (if any) can be fairly verbose and detailed.  Use your judgemen
 ### Whitespace
 
 * 2 space indents (setq js-indent-level 2)
-* spaces not literal tabs (setq-default indent-tabs-mode nil)
+* spaces, not literal tabs (setq-default indent-tabs-mode nil)
 * no trailing whitespace (setq-default show-trailing-whitespace t)
 
 Emacs users should check out [js2-mode](https://github.com/mooz/js2-mode) for a nice way to avoid silly javascript errors, and help enforce standards.
+
+### Spaces between tokens
+
+Separate tokens with a single space as in these examples:
+
+`a = b + 1`, not `a=b+1`
+
+`function (a, b, c)`, not `function(a,b,c)`
+
+`for (i = 0; i < 3; i++)`, not `for(i=0;i<3;i++)`
+
+`{a: 1, b: 2}`, not `{a:1,b:2}`
+
+`if (a)`, not `if(a)`
+
+Unary negation also takes a space:
+
+`if (! a)`, not `if (!a)`
+
+But increment and decrement operators don't take a space:
+
+`a++`, not `a ++`
+
+`--b`, not `-- b`
+
+### Use camelCase for identifiers
+
+Functions should be named like `doAThing`, not `do_a_thing`.
+
+Other variable names get the same treatment: `isConnected`, not `is_connected`.
+
+Originally Meteor used a different convention, in which underscores were sometimes encouraged. But now we want to move everything over to camelCase to match common JavaScript convention. Unfortunately there are functions_with_underscores in the public API and sometime before 1.0 we'll have to take a breaking change to rename them.
+
+### Brace style
+
+Use this brace style:
+
+  if (a < 0) {
+    console.log("a is negative");
+    handleNegativeA();
+  } else if (a > 0) {
+    console.log("a is positive");
+    handlePositiveA();
+  } else {
+    console.log("a is zero or NaN");
+    handleOtherA();
+  }
+
+### Braces are optional around single-statement blocks
+
+Generally, prefer to leave out the curly braces when the body of a block is a statement that's short enough to fit on one line:
+
+    if (! alreadyDone)
+      doSomething();
+
+    while (node.parentNode)
+      node = node.parentNode;
+
+If you feel that the code would be much easier to read with braces, though, you can add them at your discretion.
+
+It's OK to have braces in one branch of an if..else construct, and not another:
+
+    if (widgetMarketOpen) {
+      buyWidgets();
+      sellWidgets();
+    } else
+      throw new Error("No widget trading for you");
 
 ### Signature comment for `arguments`
 
 If a function takes more arguments than there are formal parameters (via `arguments`), comment like so:
 
-    _extend(Foo.prototype, {
-      my_variadic_function: function (/* arguments */) { ... },
-      another_variadic_function: function (x, y, z, /* arguments */) { ... },
+    _.extend(Foo.prototype, {
+      myVariadicFunction: function (/* arguments */) { ... },
+      anotherVariadicFunction: function (x, y, z, /* arguments */) { ... },
     });
 
 (Not `/* varargs */` -- that's a C concept.)
@@ -74,16 +141,16 @@ because Javascript has only one scope per function (it is as if it floats the de
     _.each(stuff, function (f) {f();});
 
     // Or a higher-order function
-    var make_func = function (x) {return function () {console.log(x);};};
+    var makeFunc = function (x) {return function () {console.log(x);};};
     for (var a in foo) {
-      stuff.push(make_func(a)); // Works
+      stuff.push(makeFunc(a)); // Works
     }
     _.each(stuff, function (f) {f();});
 
     // Or put the relevant part of the loop body in a separate function
-    var add_func = function (x) {stuff.push(function () {console.log(x);})};
+    var addFunc = function (x) {stuff.push(function () {console.log(x);})};
     for (var a in foo) {
-      add_func(a); // Works
+      addFunc(a); // Works
     }
     _.each(stuff, function (f) {f();});
 

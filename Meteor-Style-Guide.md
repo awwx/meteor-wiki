@@ -46,6 +46,10 @@ Other variable names get the same treatment: `isConnected`, not `is_connected`.
 
 Originally Meteor used a different convention, in which underscores were sometimes encouraged. But now we want to move everything over to camelCase to match common JavaScript convention. Unfortunately there are functions_with_underscores in the public API and sometime before 1.0 we'll have to take a breaking change to rename them.
 
+### Private identifiers start with underscores
+
+If a method or property name starts with `_`, it's a private implementation detail and shouldn't be used from outside the module where it is defined. It could disappear or change at any time.
+
 ### Brace style
 
 Use this brace style:
@@ -79,7 +83,7 @@ It's OK to have braces in one branch of an if..else construct, and not another:
       buyWidgets();
       sellWidgets();
     } else
-      throw new Error("No widget trading for you");
+      throw new Error("No widget trading for you!");
 
 ### Always use semicolons; beware semicolon insertion when breaking lines
 
@@ -188,6 +192,47 @@ Often, none of these alternatives will look very good. Use your discretion and c
 Always use `===`, not `==`.
 
 If you want to compare a number to a string version of said number, use `x === parseInt(y)`, `x.toString() === y`, or `x === +y`. It is much more clear what is going on. (Note that those alternatives differ in how they handle non-numeric characters or leading zeros in the string. Only the third alternative gets all the edge cases right.)
+
+### Coercion to boolean
+
+If you have a value that could be truthy or falsey, and you want to convert it to `true` or `false`, the preferred idiom is `!!`:
+
+    var getStatus = function () {
+      // Return status (a non-empty string) if available, else null
+    };
+
+    var isStatusAvailable = function () {
+      return !! getStatus();
+    };
+
+### `|| for default values`
+
+`||` is handy for introducing default values:
+
+    this.name = this.name || "Anonymous";
+
+    _.each(this.items || [], function () { ... });
+
+### `&&` for conditional function calls
+
+`&&` can be handy when conditionally calling a function for its value:
+
+    // Preferred
+    return event && handleEvent(event);
+
+    // Not preferred
+    return event ? handleEvent(event) : null;
+
+But don't use it when `if` would work just as well and would be clearer:
+
+    // Not preferred
+    for (var node = first; node; node = node.parent)
+      node.callback && node.callback();
+
+    // Preferred
+    for (var node = first; node; node = node.parent)
+      if (node.callback)
+        node.callback();
 
 ### Error objects
 

@@ -205,7 +205,7 @@ If you have a value that could be truthy or falsey, and you want to convert it t
       return !! getStatus();
     };
 
-### `|| for default values`
+### `||` for default values
 
 `||` is handy for introducing default values:
 

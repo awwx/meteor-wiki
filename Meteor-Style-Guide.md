@@ -22,6 +22,8 @@ Separate tokens with a single space as in these examples:
 
 `for (i = 0; i < 3; i++)`, not `for(i=0;i<3;i++)`
 
+`a(1, 2, 3)`, not `a(1,2,3)`
+
 `{a: 1, b: 2}`, not `{a:1,b:2}`
 
 `if (a)`, not `if(a)`

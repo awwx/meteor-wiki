@@ -38,6 +38,12 @@ But increment and decrement operators don't take a space:
 
 `--b`, not `-- b`
 
+When functions or objects fit entirely on a single line, put a space inside the enclosing braces:
+
+`stack.push({ parent: node, red: true })`, not `stack.push({parent:node, red: true})`
+
+`a(function () { return true; })`, not `a(function () {return true;})`
+
 ### Use camelCase for identifiers
 
 Functions should be named like `doAThing`, not `do_a_thing`.
@@ -223,16 +229,43 @@ If you have a value that could be truthy or falsey, and you want to convert it t
     // Not preferred
     return event ? handleEvent(event) : null;
 
-But don't use it when `if` would work just as well and would be clearer:
-
-    // Not preferred
-    for (var node = first; node; node = node.parent)
-      node.callback && node.callback();
+We also like to use it to call a function only if some other value is present:
 
     // Preferred
-    for (var node = first; node; node = node.parent)
-      if (node.callback)
-        node.callback();
+    for (var node = first; node; node = node.parent) {
+      node.label && node.callback && node.callback(node.label);
+    }
+
+    // Not preferred (unless it's clearer in a particular case)
+    for (var node = first; node; node = node.parent) {
+      if (node.label && node.callback)
+        node.callback(node.label);
+    }
+
+It's true that this confuses people who haven't seen `&&` used in this way before. But once you're used to it it's easy to read and convenient. We think it's worth the tradeoff.
+
+### Keyword arguments with `options`
+
+If a function takes a lot of arguments, especially if many of those arguments are optional, or several of the arguments are functions, don't try to put all of the arguments in the function's signature. Instead, add a final argument, `options`.
+
+    var makeCube = function (owner, options) {
+      // Provide default values for the options
+      options = _.extend({
+        color: 'grey',
+        weight: 1.0,
+        material: 'aluminum',
+        onRender: function () {},
+        onDestroy: function () {}
+      }, options);
+
+      console.log(owner + ", here is your " + options.color + "cube.");
+      options.onRender();
+      ...
+    });
+
+Keep the most important arguments in the signature (eg, `owner` above.) Ideally, the arguments in the signature are the "cake" (the main substance and structure of the operation), and the options are the "icing" (frills and modifiers.)
+
+However, this is just a guideline. You should do whatever will make life easiest for the person calling the function. Consider the situation from their point of view. What are they trying to accomplish by calling your function? What will make the callsite look clearest to someone reading the code a year later who doesn't understand it?
 
 ### Error objects
 

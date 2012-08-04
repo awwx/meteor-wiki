@@ -9,6 +9,9 @@ The best way (the only way?) to contribute code is to submit a pull request.  We
 * Development happens on the **devel** branch, so please make sure your branch is based off that.
 * Sign the [contributor's agreement](http://contribute.meteor.com/).
 * Follow the [Meteor style guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide).
+* Limit yourself to one feature or bug fix per pull request.
+* Name your branch to match the feature/bug fix that you are submitting.
+* Write clear, descriptive commit messages.
 
 
 ### Submitting a new package

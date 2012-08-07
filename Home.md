@@ -6,7 +6,7 @@ Visit [Stackoverflow.com](http://stackoverflow.com/questions/tagged/meteor), or 
 
 The best way (the only way?) to contribute code is to submit a pull request.  We have a few guidelines for you.
 
-* Development happens on the **devel** branch, so please make sure your branch is based off that.
+* Make sure that your branch is based off of the **devel** branch. The **devel** branch is where active development happens.
 * Sign the [contributor's agreement](http://contribute.meteor.com/).
 * Follow the [Meteor style guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide).
 * Limit yourself to one feature or bug fix per pull request.

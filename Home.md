@@ -28,6 +28,8 @@ Here are some guidelines:
 
 * Because the package API is still in flux, and because you can include client-side JS/CSS files directly in your project's `client/lib` directory, the bar is higher for new packages that only include client-side JS/CSS files. 
 
+* Meteor minifies all JS/CSS.  Packages should include only the original JS/CSS files, not the minified versions. 
+
 
 ### Other changes
 

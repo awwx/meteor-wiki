@@ -14,7 +14,11 @@ The best way (the only way?) to contribute code is to submit a pull request.  We
 * Write clear, descriptive commit messages.
 
 
-### Submitting a new package
+### Package Submission Guidelines
+
+#### Simple Assets
+
+Because the package API is still in flux, and because there are so many client-side libraries out there, we're not taking new packages that only include js/css files to be shipped to the client at this time. You can easily get the same effect by placing the files in your application source tree. Place client library files in the directory `client/lib/`.
 
 #### Pre-processors
 
@@ -26,10 +30,6 @@ We love new pre-processor packages. Here are some guidelines for submitting a ne
 
 * It should be a stable version. If it requires an npm module install, make sure to add it to `admin/generate-dev-bundle.sh` with a fixed version number. If the preprocessor is only a few files, you can avoid the dev bundle and simply put the code in the package directory.
 
-
-#### Simple Assets
-
-Because the package API is still in flux, and because there are so many client-side libraries out there, we're not taking new packages that only include files to be shipped to the client at this time. You can easily get the same effect by placing the files in your application source tree. Place client library files in the directory `client/lib/`.
 
 ### Other changes
 

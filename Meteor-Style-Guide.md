@@ -244,6 +244,18 @@ We also like to use it to call a function only if some other value is present:
 
 It's true that this confuses people who haven't seen `&&` used in this way before. But once you're used to it it's easy to read and convenient. We think it's worth the tradeoff.
 
+### `a && b || c`
+
+This is an idiom borrowed from Python. It does the same thing as `a ? b : c`, except that if `a` and `b` are both false, it returns `c`. You should use `a && b || c` only where `a ? b : c` won't do the job.
+
+    // If we have a name, return the entry for it in Template, if any. Otherwise return {}.
+    return name && Template[name] || {};
+
+    // This is subtly different. It will return undefined if name is truthy but isn't present in Template.
+    return name ? Template[name] : {};
+
+Take a moment to convince yourself that `a && b || c` works as advertised, then memorize its behavior and don't give it another thought.
+
 ### Keyword arguments with `options`
 
 If a function takes a lot of arguments, especially if many of those arguments are optional, or several of the arguments are functions, don't try to put all of the arguments in the function's signature. Instead, add a final argument, `options`.

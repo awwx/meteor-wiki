@@ -16,19 +16,17 @@ The best way (the only way?) to contribute code is to submit a pull request.  We
 
 ### Package Submission Guidelines
 
-#### Simple Assets
+Here are some guidelines:
 
-Because the package API is still in flux, and because there are so many client-side libraries out there, we're not taking new packages that only include js/css files to be shipped to the client at this time. You can easily get the same effect by placing the files in your application source tree. Place client library files in the directory `client/lib/`.
+* If you submit a smart package pull request, we want to see strong community interest in the package before we include it in a Meteor release.  Comments on the pull request are great for this.  This helps us keep Meteor core clean and streamlined.
 
-#### Pre-processors
+* Your package should have tests. See `packages/coffeescript` or `packages/less` for examples.
 
-We love new pre-processor packages. Here are some guidelines for submitting a new pre-processor:
+* Your package should be documented. See `docs/client/packages`.
 
-* It should have tests. See `packages/coffeescript` or `packages/less` for examples.
+* Use a stable version. If it requires an npm module install, make sure to add it to `admin/generate-dev-bundle.sh` with a fixed version number. If the preprocessor is only a few files, you can avoid the dev bundle and simply put the code in the package directory.
 
-* It should be documented. See `docs/client/packages`.
-
-* It should be a stable version. If it requires an npm module install, make sure to add it to `admin/generate-dev-bundle.sh` with a fixed version number. If the preprocessor is only a few files, you can avoid the dev bundle and simply put the code in the package directory.
+* Because the package API is still in flux, and because you can include client-side JS/CSS files directly in your project's `client/lib` directory, the bar is higher for new packages that only include client-side JS/CSS files. 
 
 
 ### Other changes

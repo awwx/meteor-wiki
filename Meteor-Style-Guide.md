@@ -9,6 +9,7 @@ Subsequent lines (if any) can be fairly verbose and detailed.  Use your judgemen
 * 2 space indents (setq js-indent-level 2)
 * spaces, not literal tabs (setq-default indent-tabs-mode nil)
 * no trailing whitespace (setq-default show-trailing-whitespace t)
+* maximum line length 80 (setq-default fill-column 80)
 
 Emacs users should check out [js2-mode](https://github.com/mooz/js2-mode) for a nice way to avoid silly javascript errors, and help enforce standards.
 

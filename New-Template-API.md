@@ -1,5 +1,7 @@
 # New Template API
 
+The API documented on this page can be found on the `spark` branch.
+
 ## Introduction
 
 This release adds the following features:

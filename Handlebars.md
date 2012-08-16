@@ -1,8 +1,6 @@
 
 For the official docs on Handlebars syntax, see http://handlebarsjs.com/.  Meteor supports Handlebars syntax with some extensions and clarifications.
 
-The behavior documented on this page includes fixes on the `devel` branch.
-
 ## Expressions
 
 Here's a template containing the expression `{{foo}}`:

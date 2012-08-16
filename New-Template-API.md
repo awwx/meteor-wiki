@@ -36,7 +36,7 @@ You'll need to update the following things in your code.
 
 ## Usage Overview
 
-### If you have a template named 'foo'
+### If you have a template named 'foo':
 
 #### Template.foo.create = function () { ... }
 

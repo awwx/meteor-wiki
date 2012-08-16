@@ -36,7 +36,7 @@ You'll need to update the following things in your code.
 
 ## Usage Overview
 
-_If you have a template named 'foo':_
+### If you have a template named 'foo'
 
 #### Template.foo.create = function () { ... }
 
@@ -61,7 +61,7 @@ Attach events to a template. Just like the old Template.foo.events = {...} synta
 #### Template.foo.helpers({ thing: function () { ... } })
 Register helper functions that can be called from a template. An alternative to Template.foo.thing = function () { ... }, but you can use it if you want to add a helper named something like 'events' or 'helpers' or 'created'.
 
-_Inside a Handlebars template:_
+### Inside a Handlebars template:
 
 #### {{#constant}} ... {{/constant}}
 
@@ -71,7 +71,7 @@ Mark a region as constant. Meteor will leave it alone and never redraw it. In th
 
 Most people will never have a reason to use this. It puts part of a template in its own dependency context, so that changes there will only cause that area to be redrawn, not the whole template. But if you're depending on redraw behavior, you're probably doing something wrong. Instead you should use constant regions, and preserve so that you don't care when your template is redrawn.
 
-_From an event handler:_
+### From an event handler:
 
 Event handlers now take two parameters, `event` and `template`. `event` is the normalized event, as before. `template` is the template information -- it's got any data you set up in `create` and `render`, plus firstNode, lastNode, find, findAll, and data. `this` is still the data context at the point where the event occurred (not necessarily the same as template.data, which is what the data context was at the top of the template.)
 

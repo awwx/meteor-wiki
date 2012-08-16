@@ -148,6 +148,12 @@ Preservation of a given node will be skipped if it isn't possible because of con
 
 Note:  Previous versions of Meteor had an implicit page-wide `preserve` directive that labeled nodes by their "id" and "name" attributes, which has been removed in favor of this explicit, opt-in mechanism.
 
+For example, to preserve all `<input>` elements with ids in template 'foo', use:
+
+    Template.foo.preserve({
+      'input[id]': function (node) { return node.id; }
+    });
+
 #### Template.myTemplate.helpers({foo: function (...) {...}, ...})
 
 Specifies Handlebars helpers available to `myTemplate`.  This is alternative syntax to `Template.myTemplate.foo = ...` with the same effect, except there is less likelihood of collision with Meteor API functions like `render` and built-in JavaScript properties of functions.

@@ -1,38 +1,23 @@
-### Help
+### Useful Resources
 
-Visit [Stackoverflow.com](http://stackoverflow.com/questions/tagged/meteor), or the IRC channel(freenode.com).
+* [Official Meteor Docs](http://docs.meteor.com)
+* [meteor-core mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-core)
+* [meteor-talk mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-talk)
+* [Questions tagged 'meteor' on StackOverflow](http://stackoverflow.com/questions/tagged/meteor)
+* IRC #meteor channel on irc.freenode.net
+* [Unofficial Meteor FAQ](http://github.com/tmeasday/unofficial-meteor-faq)
+* Follow the [Meteor Style Guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide)
+* A particularly nice [tutorial by Andrew Scala](http://andrewscala.com/meteor)
+* What those [GitHub Issue Labels](https://github.com/meteor/meteor/wiki/GitHub-Issue-Labels) in our issue queue mean
 
-### Contributing code to the Meteor project
+### How To Contribute
 
-The best way (the only way?) to contribute code is to submit a pull request.  We have a few guidelines for you.
+The best way (the only way?) to contribute code is to submit a pull request.  Follow the [Contributor Guidelines](https://github.com/meteor/meteor/wiki/Contributor-Guidelines)
 
-* Make sure that your branch is based off of the **devel** branch. The **devel** branch is where active development happens.
-* Sign the [contributor's agreement](http://contribute.meteor.com/).
-* Follow the [Meteor style guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide).
-* Limit yourself to one feature or bug fix per pull request.
-* Name your branch to match the feature/bug fix that you are submitting.
-* Write clear, descriptive commit messages.
+### Works In Progress
 
+Here are drafts of docs that haven't made it into http://docs.meteor.com yet.  You may find these useful.  We appreciate suggestions and improvements: file issues or submit pull requests.
 
-### Package Submission Guidelines
-
-Here are some guidelines:
-
-* If you submit a smart package pull request, we want to see strong community interest in the package before we include it in a Meteor release.  Comments on the pull request are great for this.  This helps us keep Meteor core clean and streamlined.
-
-* Your package should have tests. See `packages/coffeescript` or `packages/less` for examples.
-
-* Your package should be documented. See `docs/client/packages`.
-
-* Use a stable version. If it requires an npm module install, make sure to add it to `admin/generate-dev-bundle.sh` with a fixed version number. If the preprocessor is only a few files, you can avoid the dev bundle and simply put the code in the package directory.
-
-* Because the package API is still in flux, and because you can include client-side JS/CSS files directly in your project's `client/lib` directory, the bar is higher for new packages that only include client-side JS/CSS files. 
-
-* Similarly, the bar is higher for new packages that only include JS files with minimal integration. Generally, the test is whether a file can simply be put into your project's `lib` or `server/lib` directory, or if additional effort is needed to make it work.
-
-* Meteor minifies all JS/CSS.  Packages should include only the original JS/CSS files, not the minified versions. 
-
-
-### Other changes
-
-If you're working on a big ticket item, best to check in first on the #meteor IRC channel or email us at contact@meteor.com.  We'd hate to have to steer you in a different direction after you've already put in a lot of hard work.
+* [Getting Started With Auth](https://github.com/meteor/meteor/wiki/Getting-Started-with-Auth)
+* [New Template API](https://github.com/meteor/meteor/wiki/New-Template-API)
+* [Handlebars](https://github.com/meteor/meteor/wiki/Handlebars)

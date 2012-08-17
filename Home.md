@@ -14,7 +14,6 @@ Make a good first effort to find an answer before asking your question. If you c
 
 ### Other Resources
 
-* A particularly nice [tutorial by Andrew Scala](http://andrewscala.com/meteor)
 * Follow the [Meteor Style Guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide)
 * What those [GitHub Issue Labels](https://github.com/meteor/meteor/wiki/GitHub-Issue-Labels) in our issue queue mean
 
@@ -41,3 +40,4 @@ There is a small but growing list of community-created packages on [Atmosphere](
 Do you blog about Meteor regularly? File an issue with a link to your blog's "Posts tagged 'meteor'" page, and we'll add it here.
 
 * [Tom Coleman's blog](http://bindle.me/blog)
+* A particularly nice [tutorial by Andrew Scala](http://andrewscala.com/meteor) on his blog

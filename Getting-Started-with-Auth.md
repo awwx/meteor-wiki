@@ -49,6 +49,16 @@ The `auth` branch is a work in progress. The features and API may change at any 
  - `{_id: (user id), loading: true}` if the user is logged in but we are still waiting for the subscription to load on the client 
 - [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
 
+#### Configuration
+[Client/Server] `Meteor.accounts.config(options)` - Global configuration of the accounts system. Affects both the lower-level APIs such as Meteor.createUser and the appearance of `accounts-ui`. 
+
+NOTE: We are fairly confident that this API will change.
+
+Options:
+- `requireEmail` (Boolean) - Require users created to have an email. This also effects the login and signup forms in `accounts-ui`
+- `requireUsername` (Boolean) - Require users created to have a username. This also effects the login and signup forms in `accounts-ui`
+- `validateEmails` (Boolean) - Send validation emails to users created via `accounts-password` (as opposed to users created via OAuth, whose email is assumed to be validated).
+
 #### Disabling full write access
 By default, clients are given full write access to all collections. To turn this behavior off, remove the `insecure` package
 
@@ -63,8 +73,13 @@ Options:
 - `remove` (Function(userId, docs)) - Return true to allow user to remove documents
 - `fetch` (Array) - Fields to be fetched for update and remove restrictions (if not passed, all fields will be fetched)
 
+#### Email templates
 
-#### If you aren't using accounts-ui
+[Server] `Meteor.accounts.emailTemplates` - An object that can be modified to customize the email that are sent.
+
+#### Low-level API
+If you're not using `accounts-ui`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email validation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
+
 - [Client] `Meteor.loginWithFacebook()`
 - [Client] `Meteor.loginWithGoogle()`
 - [Client] `Meteor.loginWithPassword(user, password, callback)`
@@ -75,6 +90,9 @@ Options:
  - `options` a hash containing: `username` and/or `email`, `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
  - `callback`: Function(error|null)
+- [Server] `Meteor.createUser(options, extra)` - Creates a user and sends that user an email with a link to choose their initial password and complete their account enrollment
+ - `options` a hash containing: `email` (mandatory), `username` (optional)
+ - `extra`: extra fields for the user object (eg `name`, etc).
 - [Client] `Meteor.changePassword(oldPassword, newPassword, callback)`
  - `callback`: Function(error|null)
  - Must be logged in to call this. Changes the currently logged in user.

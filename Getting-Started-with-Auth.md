@@ -50,7 +50,7 @@ The `auth` branch is a work in progress. The features and API may change at any 
 - [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
 
 #### Configuration
-[Client/Server] `Meteor.accounts.config(options)` - Global configuration of the accounts system. Affects both the lower-level APIs such as Meteor.createUser and the appearance of `accounts-ui`. 
+[Client/Server] `Meteor.accounts.config(options)` - Global configuration of the accounts system. Affects both the low-level API and the appearance of `accounts-ui`. 
 
 NOTE: We are fairly confident that this API will change.
 
@@ -87,7 +87,7 @@ If you're not using `accounts-ui`, use these functions to implement your own log
  - `password`: the plaintext password. The password is _not_ sent unencrypted, though.
  - `callback`: Function(error|null)
 - [Client] `Meteor.logout()`
-- [Client] `Meteor.createUser(options, extra, callback)`
+- [Client] `Meteor.createUser(options, extra, callback)` - Creates a user and logs in as that user
  - `options` a hash containing: `username` and/or `email`, `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
  - `callback`: Function(error|null)

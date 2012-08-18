@@ -75,7 +75,7 @@ Options:
 
 #### Email templates
 
-[Server] `Meteor.accounts.emailTemplates` - An object that can be modified to customize the email that are sent.
+[Server] `Meteor.accounts.emailTemplates` - An object that can be modified to customize the emails that are sent.
 
 #### Low-level API
 If you're not using `accounts-ui`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email validation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.

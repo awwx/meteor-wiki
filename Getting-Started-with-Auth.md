@@ -86,6 +86,7 @@ If you're not using `accounts-ui`, use these functions to implement your own log
  - `user` argument is either `{username: 'username'}`, `{email: 'email@address'}`, or a string that might be username or email.
  - `password`: the plaintext password. The password is _not_ sent unencrypted, though.
  - `callback`: Function(error|null)
+- [Client] `Meteor.logout()`
 - [Client] `Meteor.createUser(options, extra, callback)`
  - `options` a hash containing: `username` and/or `email`, `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
@@ -96,7 +97,6 @@ If you're not using `accounts-ui`, use these functions to implement your own log
 - [Client] `Meteor.changePassword(oldPassword, newPassword, callback)`
  - `callback`: Function(error|null)
  - Must be logged in to call this. Changes the currently logged in user.
-- [Client] `Meteor.logout()`
 - [Client] `Meteor.enrollAccount(token, password, callback)` - Completes the account enrollment process that began with a server-side call to `Meteor.createUser`. Also validates this user's email address.
  - `token`: unique string contained in the email sent by `Meteor.createUser`
  - `callback`: function receiving one error argument, or null for success

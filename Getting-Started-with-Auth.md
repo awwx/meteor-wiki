@@ -99,16 +99,16 @@ If you're not using `accounts-ui`, use these functions to implement your own log
  - Must be logged in to call this. Changes the currently logged in user.
 - [Client] `Meteor.enrollAccount(token, password, callback)` - Completes the account enrollment process that began with a server-side call to `Meteor.createUser`. Also validates this user's email address.
  - `token`: unique string contained in the email sent by `Meteor.createUser`
- - `callback`: function receiving one error argument, or null for success
+ - `callback`: Function(error|null)
 - [Client] `Meteor.forgotPassword(options, callback)` - Requests that a reset password link be sent to a user
  - `options`: object containing an `email` field
- - `callback`: function receiving one error argument, or null for success
+ - `callback`: Function(error|null)
 - [Client] `Meteor.resetPassword(token, newPassword, callback)` - Resets a user's password
  - `token`: unique string contained in the email sent to the user by `Meteor.forgotPassword`
- - `callback`: function receiving one error argument, or null for success
+ - `callback`: Function(error|null)
 - [Client] `Meteor.validateEmail(token, callback)` - Validate a user's email
  - `token`: unique string contained in the email sent to the user by a client-side call to `Meteor.createUser` (in case validateEmails was set to true in the call to `Meteor.accounts.config`)
- - `callback`: function receiving one error argument, or null for success
+ - `callback`: Function(error|null)
 
 
 #### Configuring login services (see section below)

@@ -107,7 +107,7 @@ If you're not using `accounts-ui`, use these functions to implement your own log
  - `token`: unique string contained in the email sent to the user by `Meteor.forgotPassword`
  - `callback`: Function(error|null)
 - [Client] `Meteor.validateEmail(token, callback)` - Validate a user's email
- - `token`: unique string contained in the email sent to the user by a client-side call to `Meteor.createUser` (in case validateEmails was set to true in the call to `Meteor.accounts.config`)
+ - `token`: unique string contained in the email sent to the user by a client-side call to `Meteor.createUser` (in case `validateEmails` was set to true in the call to `Meteor.accounts.config`)
  - `callback`: Function(error|null)
 
 

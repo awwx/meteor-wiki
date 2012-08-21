@@ -2,10 +2,10 @@
 
 First, look through these resources to see if your question has been answered already:
 * [Official Meteor Docs](http://docs.meteor.com)
-* [meteor-core mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-core)
-* [meteor-talk mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-talk)
 * [Questions tagged 'meteor' on StackOverflow](http://stackoverflow.com/questions/tagged/meteor)
 * [Unofficial Meteor FAQ](http://github.com/tmeasday/unofficial-meteor-faq)
+* [meteor-talk mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-talk) - public discussion list
+* [meteor-core mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-core) - for discussing Meteor internals and proposed changes to Meteor itself
 
 Make a good first effort to find an answer before asking your question. If you can't find an existing answer to your question, try one of the following, in this order:
 * Ask it on StackOverflow

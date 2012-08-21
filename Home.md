@@ -31,6 +31,7 @@ Here are drafts of docs that haven't made it into http://docs.meteor.com yet.  Y
 * [New Template API](https://github.com/meteor/meteor/wiki/New-Template-API)
 * [Advanced Template Demo](http://advanced-template-demo.meteor.com/) / [source for the demo](https://github.com/meteor/meteor/tree/spark/examples/other/template-demo)
 * [Handlebars](https://github.com/meteor/meteor/wiki/Handlebars)
+* [Supported Platforms](https://github.com/meteor/meteor/wiki/Supported-Platforms)
 
 ### Community Packages
 

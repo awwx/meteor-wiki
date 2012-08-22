@@ -14,7 +14,7 @@ This release adds the following features:
 
 * __Node preservation.__ Sometimes you need certain nodes of a template to not be disturbed by the rerendering process. You want the node's attributes and childen to be updated, but you want the node itself to be left in place. This comes up often with `<input>` elements (preserving cursor position and focus) or with CSS animations (recreating the node would restart the animation.) Now, just specify the nodes you want preserved with CSS selectors, and it will be done. This answers https://github.com/tmeasday/unofficial-meteor-faq#how-do-i-animate-when-meteor-changes-things-under-me
 
-* __Finding nodes in a template.__ From an event handler, you can now easily find the nodes in a template by selector so you can manipulate them. It's as easy as `template.find('.mybutton')`. This works in template render callbacks too.
+* __Finding nodes in a template.__ From an event handler, you can now easily find the nodes in a template by selector so you can manipulate them. It's as easy as `template.find('.mybutton')`. This works in template rendered callbacks too.
 
 ## About Spark
 
@@ -32,7 +32,7 @@ You'll need to update the following things in your code.
 
 * In the past, you attached to a template with Template.foo.events = { ... }. For consistency with the new API, this is now a function: Template.foo.events({ ... }). However, we've kept backward compatibility with the old way for now.
 
-* If you had template helpers named 'create', 'render', 'destroy', or 'preserve', they'll conflict with the new API. Either rename them, or use the new Template.foo.helpers({ ... }) notation to add them without fear of conflicts.
+* If you had template helpers named 'created', 'rendered', 'destroyed', or 'preserve', they'll conflict with the new API. Either rename them, or use the new Template.foo.helpers({ ... }) notation to add them without fear of conflicts.
 
 * The Meteor.ui.render, Meteor.ui.chunk, and Meteor.ui.listChunk functions are gone. If any of your code uses these functions, you'll need to port it to Spark. If you need help please contact David or Geoff.
 
@@ -40,15 +40,15 @@ You'll need to update the following things in your code.
 
 ### If you have a template named 'foo':
 
-#### Template.foo.create = function () { ... }
+#### Template.foo.created = function () { ... }
 
 Function to call when the template is created. You can set whatever properties you like on `this` and they will be passed through to the `rendered` and `destroyed` callbacks. Also, `this.data` has the data that was passed into the template.
 
-#### Template.foo.render = function () { ... }
+#### Template.foo.rendered = function () { ... }
 
 Function to call whenever the template is turned into DOM nodes and put on the screen, and again whenever any part of the template is rerendered. `this` will have whatever properties you set up in `created`, and also firstNode and lastNode (the beginning and end of the template in the DOM), find and findAll (find nodes in the template by selector), and data (as before.)
 
-#### Template.foo.destroy = function () { ... }
+#### Template.foo.destroyed = function () { ... }
 
 Function to call whenever the template is taken off the screen and disposed of. `this` is as before.
 
@@ -75,11 +75,11 @@ Most people will never have a reason to use this. It puts part of a template in 
 
 ### From an event handler:
 
-Event handlers now take two parameters, `event` and `template`. `event` is the normalized event, as before. `template` is the template information -- it's got any data you set up in `create` and `render`, plus firstNode, lastNode, find, findAll, and data. `this` is still the data context at the point where the event occurred (not necessarily the same as template.data, which is what the data context was at the top of the template.)
+Event handlers now take two parameters, `event` and `template`. `event` is the normalized event, as before. `template` is the template information -- it's got any data you set up in `created` and `rendered`, plus firstNode, lastNode, find, findAll, and data. `this` is still the data context at the point where the event occurred (not necessarily the same as template.data, which is what the data context was at the top of the template.)
 
 ## Out of scope for this release
 
-(1) Accessing template data (eg, set up in 'create') from inside a helper.
+(1) Accessing template data (eg, set up in 'created') from inside a helper.
 
 (2) Preserving template data across hot code pushes.
 
@@ -89,11 +89,11 @@ Event handlers now take two parameters, `event` and `template`. `event` is the n
 
 ## API Reference
 
-#### Template.myTemplate.render = function () {...}
+#### Template.myTemplate.rendered = function () {...}
 
 This callback is called when an instance of Template.myTemplate is rendered and put on the page for the first time, and again each time any part of the template is re-rendered.
 
-Note: There's currently no way to tell which part of the template changed to cause the callback.  The first render() received after create() is by far the most useful.
+Note: There's currently no way to tell which part of the template changed to cause the callback.  The first rendered() received after created() is by far the most useful.
 
 In the body of the callback, `this` is a template instance object with the following methods and fields:
 
@@ -105,25 +105,25 @@ In the body of the callback, `this` is a template instance object with the follo
 
 * __this.data__ - The Handlebars data context of the template invocation.
 
-The template instance object is unique per occurrence of the template and persists across re-renderings.  You can add whatever additional properties you want to the object.  Property names starting with "_" are guaranteed to be available for your use.  Use the `create` and `destroy` callbacks to perform initialization or clean-up on the object.
+The template instance object is unique per occurrence of the template and persists across re-renderings.  You can add whatever additional properties you want to the object.  Property names starting with "_" are guaranteed to be available for your use.  Use the `created` and `destroyed` callbacks to perform initialization or clean-up on the object.
 
-#### Template.myTemplate.create = function () {...}
+#### Template.myTemplate.created = function () {...}
 
-This callback is called when Template.myTemplate is invoked as a new occurrence of the template and not as a re-rendering.  Inside the callback, `this` is a new template instance object.  Properties you set on this object will be visible from callbacks like render() and destroy(), and also from event handlers.
+This callback is called when Template.myTemplate is invoked as a new occurrence of the template and not as a re-rendering.  Inside the callback, `this` is a new template instance object.  Properties you set on this object will be visible from callbacks like rendered() and destroyed(), and also from event handlers.
 
-Each time Template.myTemplate is called, Meteor determines if this call corresponds to some previous rendering of the template on the page.  If it does, no create() callback is called; the render() callback will be called with the template instance object taken from the previous rendering.  If the call to Template.myTemplate does not correspond to any previous occurrence of the template, the create() callback is called with a fresh template instance object as `this`.  The result is that even if a template and its surroundings are recalculated and rerendered, corresponding calls will be matched and the data associated with each template instance will persist.
+Each time Template.myTemplate is called, Meteor determines if this call corresponds to some previous rendering of the template on the page.  If it does, no created() callback is called; the rendered() callback will be called with the template instance object taken from the previous rendering.  If the call to Template.myTemplate does not correspond to any previous occurrence of the template, the created() callback is called with a fresh template instance object as `this`.  The result is that even if a template and its surroundings are recalculated and rerendered, corresponding calls will be matched and the data associated with each template instance will persist.
 
-You cannot access the DOM from a create() callback, but you can access `this.data` and get and set your own properties on `this` (see render).
+You cannot access the DOM from a created() callback, but you can access `this.data` and get and set your own properties on `this` (see rendered).
 
-Every create() has a corresponding destroy(); that is, if you get a create() callback with a certain template instance object in `this`, you will eventually get a destroy() callback for the same object.
+Every created() has a corresponding destroyed(); that is, if you get a created() callback with a certain template instance object in `this`, you will eventually get a destroyed() callback for the same object.
 
-#### Template.myTemplate.destroy = function () {...}
+#### Template.myTemplate.destroyed = function () {...}
 
 This callback is called when an occurrence of a template is taken off the page for any reason and not replaced with a re-rendering.  The template instance object in `this` is the same object passed to other callbacks on this occurrence of the template.
 
-You cannot access the DOM from a destroy() callback, but you can access `this.data` and get and set your own properties on `this` (see render).
+You cannot access the DOM from a destroyed() callback, but you can access `this.data` and get and set your own properties on `this` (see rendered).
 
-This callback is most useful for cleaning up or undoing any external effects of create().
+This callback is most useful for cleaning up or undoing any external effects of created().
 
 #### Template.myTemplate.preserve([selector1, selector2, ...])
 #### Template.myTemplate.preserve({selector1: function (node) { /* return label */ }, ...});
@@ -158,13 +158,13 @@ For example, to preserve all `<input>` elements with ids in template 'foo', use:
 
 #### Template.myTemplate.helpers({foo: function (...) {...}, ...})
 
-Specifies Handlebars helpers available to `myTemplate`.  This is alternative syntax to `Template.myTemplate.foo = ...` with the same effect, except there is less likelihood of collision with Meteor API functions like `render` and built-in JavaScript properties of functions.
+Specifies Handlebars helpers available to `myTemplate`.  This is alternative syntax to `Template.myTemplate.foo = ...` with the same effect, except there is less likelihood of collision with Meteor API functions like `rendered` and built-in JavaScript properties of functions.
 
 #### Template.myTemplate.events({event1: function (event, template) { ... }, ... });
 
 Register for event handling on nodes in this template.  An event takes the form "click", "click div" or "mousedown .foo > .bar, mouseup .foo > .bar" -- that is, a comma-separated list of types or type-selector clauses.  Selectors are scoped to the contents of the template and may apply to nodes in sub-templates.  Elements matching the selector at any given time are considered to have DOM event handlers bound and will receive both direct and bubbled events (for events that bubble).  If the selector is omitted, the handler is only called on the target element of the event.
 
-Inside the handler, `this` is the data context of the element that matched the selector (`event.currentTarget`), and `event` is the browser event object (polyfilled for current web standards in old browsers).  `template` is the same template instance object passed to the `render` callback and provides access to the DOM (through `template.find(selector)`, etc.), the template's top-level data context (`template.data`), and any other properties set by the `create`, `render`, and `destroy` callbacks.
+Inside the handler, `this` is the data context of the element that matched the selector (`event.currentTarget`), and `event` is the browser event object (polyfilled for current web standards in old browsers).  `template` is the same template instance object passed to the `rendered` callback and provides access to the DOM (through `template.find(selector)`, etc.), the template's top-level data context (`template.data`), and any other properties set by the `created`, `rendered`, and `destroyed` callbacks.
 
 Note: This syntax is intended to replace the previous syntax where you would assign an event map to `Template.myTemplate.events`.  For now, the old syntax will still work.
 
@@ -214,7 +214,7 @@ Inside the function, you can call any of the following Spark "annotation functio
 
 When the annotation functions are not called from inside Spark.render, they are harmless no-ops. This makes it easy to create "dual use" templates that can be rendered either to strings (when called directly) or to DOM nodes (when called inside Spark.render.)
 
-The DocumentFragment returned by Spark.render should be inserted into the DOM document immediately. If, at flush time (see 'deps' documentation), the rendered nodes aren't in the document, then Spark will clean up the nodes, tearing down the annotations and calling any `destroy` functions that you have set up.
+The DocumentFragment returned by Spark.render should be inserted into the DOM document immediately. If, at flush time (see 'deps' documentation), the rendered nodes aren't in the document, then Spark will clean up the nodes, tearing down the annotations and calling any `destroyed` functions that you have set up.
 
 
 ### Spark annotation types
@@ -290,7 +290,7 @@ Declare a landmark at this point in the document. If this is the first rendering
 
 Landmarks are instances of Spark.Landmark and have these attributes:
 
-* id: a unique numeric id for this landmark. It remains constant as the landmark is rerendered. In combination with the 'create' and 'destroy' callbacks (below), you can use this as a key to store additional information about the landmark in your own module.
+* id: a unique numeric id for this landmark. It remains constant as the landmark is rerendered. In combination with the 'created' and 'destroyed' callbacks (below), you can use this as a key to store additional information about the landmark in your own module.
 
 * firstNode(), lastNode(): return the first and last DOM nodes in the current rendering of this landmark. These can change over time as the template is rerendered. Do not call these functions before the first rendering of the landmark.
 
@@ -300,11 +300,11 @@ Landmarks are instances of Spark.Landmark and have these attributes:
 
 options may contain the following:
 
-* create: function to call when the landmark is first created. Receives the landmark in 'this'.
+* created: function to call when the landmark is first created. Receives the landmark in 'this'.
 
-* render: function to call when any part of the contents of the landmark is rerendered. Receives the landmark in 'this'.
+* rendered: function to call when any part of the contents of the landmark is rerendered. Receives the landmark in 'this'.
 
-* destroy: function to call when the landmark is destroyed. This happens when the landmark is not part of the DOM document at flush time, but Spark may not always detect this condition immediately (eg, if you manually remove elements from the DOM without telling Spark, it will not be detected until the next time the region containing the landmark is redrawn.) Receives the landmark in 'this'.
+* destroyed: function to call when the landmark is destroyed. This happens when the landmark is not part of the DOM document at flush time, but Spark may not always detect this condition immediately (eg, if you manually remove elements from the DOM without telling Spark, it will not be detected until the next time the region containing the landmark is redrawn.) Receives the landmark in 'this'.
 
 * preserve: nodes to preserve when the landmark or its contents are redrawn. Either a list of selector, or a map from selectors to element labeling functions. Preserving a node means that it will not change (in the sense of === equality) during a redraw, even if its siblings, children, or attributes change. Moreover, it will be left in place in the DOM (it will not be removed and then reinserted.) Preserving a node necessarily preserves all of its parents. See complete documentation in the Meteor templating API under Template.myTemplate.preserve.
 

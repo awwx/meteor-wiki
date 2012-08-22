@@ -284,7 +284,7 @@ Note that function does not take an HTML string -- instead it takes a function t
 
     html = Spark.createLandmark(options, function (landmark) { return "<div>html</div>"; })
 
-Declare a landmark at this point in the document. If this is the first rendering of this (instance of) this template, creates a new landmark according to 'options' Otherwise, if this is a template that is getting rerendered, finds the already existing landmark from the previous incarnation of this template and carries it forward, replacing its configuration with 'options'.
+Declare a landmark at this point in the document. If this is the first rendering of this (instance of) this template, creates a new landmark according to 'options'.  Otherwise, if this is a template that is getting rerendered, finds the already existing landmark from the previous incarnation of this template and carries it forward, replacing its configuration with 'options'.
 
 Landmarks are instances of Spark.Landmark and have these attributes:
 

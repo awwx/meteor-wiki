@@ -272,7 +272,9 @@ When observe() is called, it must immediately call added() once for each item in
 
 * stop(): Stop delivering added/removed/moved/changed callbacks, and free up any resources associated with the observe call.
 
+```
     html = Spark.labelBranch(label, function () { return "<div>some html</div>"; })
+```
 
 Drop a branch label. 'label' must be a string (or pass null to not drop a label after all.)
 

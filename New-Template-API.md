@@ -282,6 +282,8 @@ Branch labels are hints that are used to match landmarks when the template is re
 
 Note that function does not take an HTML string -- instead it takes a function that returns an HTML string. Spark needs this so that it can perform lazy landmark matching as the template is rendered. This is what makes it possible to retrieve landmark data during rendering.
 
+Passing the value Spark.UNIQUE_LABEL instead of a label will cause Spark to generate a unique unmatchable label.
+
     html = Spark.createLandmark(options, function (landmark) { return "<div>html</div>"; })
 
 Declare a landmark at this point in the document. If this is the first rendering of this (instance of) this template, creates a new landmark according to 'options'.  Otherwise, if this is a template that is getting rerendered, finds the already existing landmark from the previous incarnation of this template and carries it forward, replacing its configuration with 'options'.

@@ -15,3 +15,7 @@ In the meantime, Windows users are encouraged to use the unofficial Windows inst
 Please contribute to bringing official Windows support to Meteor:
 * Report Windows-related bugs at https://github.com/TomWij/meteor/issues.
 * Test the unofficial Windows installer on various versions of Windows, and report back on how it goes.
+* If you have experience with cross-platform development, we could particularly use your help:
+    * Review the code at https://github.com/TomWij/meteor
+    * Make incremental improvements and submit pull requests to TomWij's fork for review
+    * Read [this thread](https://github.com/meteor/meteor/pull/291) for some starter ideas about what you can help with

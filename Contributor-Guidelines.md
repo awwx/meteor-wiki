@@ -8,7 +8,7 @@ Before submitting a pull request, make sure that it follows these guidelines:
 * Limit yourself to one feature or bug fix per pull request.
 * Name your branch to match the feature/bug fix that you are submitting.
 * Write clear, descriptive commit messages.
-* Describe your pull request in as much detail as possible: what changes it contains, what you had to do to get it to work, how you tested it, etc.  Be detailed but be clear: use bullets, examples if needed, and simple, straightforward language.
+* Describe your pull request in as much detail as possible: why this pull request is important enough for us to consider, what changes it contains, what you had to do to get it to work, how you tested it, etc.  Be detailed but be clear: use bullets, examples if needed, and simple, straightforward language.
 
 ### Package Submission Guidelines
 

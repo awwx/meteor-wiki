@@ -1,6 +1,6 @@
 ### Contributing code to the Meteor project
 
-Here are some general guidelines that you'll want to follow.
+Before submitting a pull request, make sure that it follows these guidelines:
 
 * Make sure that your branch is based off of the **devel** branch. The **devel** branch is where active development happens.
 * Sign the [contributor's agreement](http://contribute.meteor.com/).
@@ -8,11 +8,9 @@ Here are some general guidelines that you'll want to follow.
 * Limit yourself to one feature or bug fix per pull request.
 * Name your branch to match the feature/bug fix that you are submitting.
 * Write clear, descriptive commit messages.
-
+* Describe your pull request in as much detail as possible: what changes it contains, what you had to do to get it to work, how you tested it, etc.  Be detailed but be clear: use bullets, examples if needed, and simple, straightforward language.
 
 ### Package Submission Guidelines
-
-Here are some guidelines:
 
 * If you submit a smart package pull request, we want to see strong community interest in the package before we include it in a Meteor release.  Comments on the pull request are great for this.  This helps us keep Meteor core clean and streamlined.
 

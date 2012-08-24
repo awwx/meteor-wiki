@@ -82,6 +82,8 @@ If you're not using `accounts-ui`, use these functions to implement your own log
 
 - [Client] `Meteor.loginWithFacebook()`
 - [Client] `Meteor.loginWithGoogle()`
+- [Client] `Meteor.loginWithWeibo()`
+- [Client] `Meteor.loginWithTwitter()`
 - [Client] `Meteor.loginWithPassword(user, password, callback)`
  - `user` argument is either `{username: 'username'}`, `{email: 'email@address'}`, or a string that might be username or email.
  - `password`: the plaintext password. The password is _not_ sent unencrypted, though.
@@ -203,3 +205,21 @@ Meteor.accounts.weibo.setSecret(CLIENT_SECRET);
 3. Follow the guide to create an application
 4. Authorized Redirect URIs: Should contain APP_URL/_oauth/weibo?close
 5. Their `App Key` is `CLIENT_ID` we need, and `App Secret` is `CLIENT_SECRET`
+
+### Twitter
+1. Get a Twitter consumer key and secret, which we will refer to as to as `CONSUMER_KEY` and `CONSUMER_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/twitter?close` as a authorized redirect URI
+2. Run `PATH_TO_CHECKOUT/meteor add accounts-twitter`
+3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
+```
+Meteor.accounts.twitter.config(CONSUMER_KEY, APP_URL);
+```
+
+4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:
+```
+Meteor.accounts.twitter.setSecret(CONSUMER_SECRET);
+```
+
+
+#### Getting a Twitter consumer key and secret (step 1 above)
+1. Go to https://dev.twitter.com/apps/new
+2. Callback URL should be APP_URL/_oauth/twitter?close

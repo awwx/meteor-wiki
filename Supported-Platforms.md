@@ -4,11 +4,15 @@ If you don't see your platform on the list, consider contributing or filing issu
 
 Currently, Meteor is officially supported on the following platforms:
 * Mac: OS X 10.6 and above
-* Linux: x86 Debian- and Red Hat-based systems
+* Linux: x86 or x86_64 Debian- and Red Hat-based systems
+
+## Other Linux
+
+Although the installer will not run, running Meteor from a git checkout will usually work on non Debian- or Red Hat-based machines. See https://github.com/meteor/meteor/blob/master/README.md#slow-start-for-developers.
 
 ## State of Windows support
 
-Official Windows support is coming soon. 
+Official Windows support is coming. 
 
 In the meantime, Windows users are encouraged to use the unofficial Windows installer for Meteor at http://win.meteor.com/.  Huge thanks to Tom Wijsman for his work on this.
 

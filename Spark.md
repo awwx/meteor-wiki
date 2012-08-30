@@ -138,7 +138,7 @@ Find the nearest setDataContext call enclosing the given DOM node, and return th
 
 ### Meteor Convenience Functions
 
-Meteor provides a simplified wrapper around Spark as a convenience to high-level Meteor users.  These functions are documented in the official Meteor docs:
+Meteor provides a simplified wrapper around Spark as a convenience to high-level Meteor users.  These functions are documented [in the meteor docs](http://docs.meteor.com/#meteor_render):
 
     Meteor.render("<div>html</div>") => DocumentFragment
     Meteor.render(function () { return "<div>html</div>"; })) => DocumentFragment

@@ -92,7 +92,7 @@ When observe() is called, it must immediately call added() once for each item in
     html = Spark.labelBranch(label, function () { return "<div>some html</div>"; })
 ```
 
-Drop a branch label. 'label' must be a string (or pass null to not drop a label after all.)
+Drop a branch label. 'label' must be a string, or `null` to not drop a label after all.  The special value `Spark.UNIQUE_LABEL` can also be used to drop a label that will be different on each rendering and therefore never match.
 
 Branch labels are hints that are used to match landmarks when the template is redrawn. The rule is this: each landmark must have a unique branch path. A landmark's "branch path" is the sequence of labels that you encounter if you start at a landmark and walk up to the root of the document.
 

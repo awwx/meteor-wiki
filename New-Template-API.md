@@ -1,6 +1,8 @@
 # New Template API
 
-The API documented on this page can be found on the `spark` branch.
+### This API was released in Meteor 0.4.0.
+
+The latest versions of these APIs can be found in the [official docs](http://docs.meteor.com/#templates_api) and the [Spark wiki page](https://github.com/meteor/meteor/wiki/Spark).
 
 ## Introduction
 

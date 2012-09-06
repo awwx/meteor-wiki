@@ -1,10 +1,10 @@
 This explains the various labels that we use in the issue tracker.
 
 ## unconfirmed-bug
-No core dev has acknowledged it.
+Needs more information. Eg, a way to replicate, more details on observed behavior, etc.
 
 ## confirmed-bug
-A core dev has acknowledged it with a comment.
+Known and confirmed behavior that should be changed.
 
 ## needs-docs
 It's a known behavior that can be addressed through docs. Err on the side of this rather than "feature" whenever possible.

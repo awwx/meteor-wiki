@@ -17,6 +17,16 @@ Make a good first effort to find an answer before asking your question. If you c
 * Follow the [Meteor Style Guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide)
 * What those [GitHub Issue Labels](https://github.com/meteor/meteor/wiki/GitHub-Issue-Labels) in our issue queue mean
 
+### Filing Bug Reports
+
+If you've found a bug in Meteor, file a bug report in [our issue tracker](https://github.com/meteor/meteor/issues). However, a Meteor app has many moving parts, and it's often difficult to reproduce a bug based on just a few lines of code. If you want somebody to be able to fix a bug (or verify a fix that you've contributed), the best way is:
+
+* Create a new Meteor app that displays the bug with as little code as possible. Try to delete any code that is unrelated to the precise bug you're reporting.
+* Create a new GitHub repository with a name like `meteor-reactivity-bug` (or if you're adding a new reproduction recipe to an existing issue, `meteor-issue-321`) and push your code to it. (Make sure to include the `.meteor/packages` file!)
+* Reproduce the bug from scratch, starting with a `git clone` command. Copy and paste the entire command-line input and output, starting with the `git clone` command, into the issue description of a new GitHub issue. Also describe any web browser interaction you need to do.
+
+By making it as easy as possible for others to reproduce your bug, you make it easier for your bug to be fixed.
+
 ### How To Contribute
 
 Contributing doesn't necessarily mean working on Meteor internals.  See the [Get Involved page on meteor.com](http://www.meteor.com/get-involved) for a starter list of ways to contribute.

@@ -17,7 +17,7 @@ Make a good first effort to find an answer before asking your question. If you c
 * Follow the [Meteor Style Guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide)
 * What those [GitHub Issue Labels](https://github.com/meteor/meteor/wiki/GitHub-Issue-Labels) in our issue queue mean
 
-### Filing Bug Reports
+### <a name="bugs"></a>Filing Bug Reports
 
 If you've found a bug in Meteor, file a bug report in [our issue tracker](https://github.com/meteor/meteor/issues). However, a Meteor app has many moving parts, and it's often difficult to reproduce a bug based on just a few lines of code. If you want somebody to be able to fix a bug (or verify a fix that you've contributed), the best way is:
 

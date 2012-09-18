@@ -6,11 +6,13 @@ You could think of Spark as a declarative version of jQuery. jQuery is imperativ
 
 Spark is intended to be a low-level building block. It's the basis for Meteor's templating support, and Meteor developers should never need to know about it or call it. You'd use Spark from a Meteor project if you're writing your own templating system (eg, packaging a Handlebars alternative), or if you're doing something fancy and low-level.
 
+Spark is tested in modern browsers and IE 7+.
+
 ## Dependencies
 
 The following Meteor packages are used by Spark:
 
-* `deps`, Meteor's 75-line dependency tracking system. Provides the concepts of "current context", "invalidation", and "flushing".
+* `deps`, Meteor's tiny dependency tracking kernel. Provides the concepts of "current context", "invalidation", and "flushing".
 
 * `liverange`, a specialized data structure that lets you mark regions in the DOM, track the regions as they move around, walk the region hierarchy, and replace the contents of a region.
 
@@ -18,7 +20,9 @@ The following Meteor packages are used by Spark:
 
 * `domutils`, a toolbox of cross-brower DOM manipulation functions
 
-Currently, `domutils` uses jQuery's Sizzle selector engine, but Sizzle can easily be replaced with a thin wrapper around `querySelectorAll` in all browsers except Internet Explorer 7 and earlier.
+You can generate a standalone `spark.js` by running the shell script `admin/spark-standalone.sh` in the Meteor repository.
+
+If jQuery or Sizzle is present in the browser, Spark will use Sizzle for selector matching.  Otherwise it will use the browser's `querySelectorAll` function, which requires a modern browser or IE 8+.
 
 ## Spark.render, the main Spark entry point
 

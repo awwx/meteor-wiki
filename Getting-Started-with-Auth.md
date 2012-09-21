@@ -18,13 +18,13 @@ using both third party services such Facebook and Google (via OAuth2)
 and old fashioned usernames and passwords.
 
 3. The "accounts-ui" smart package provides convenient chrome on the
-client for a login form {{> loginButtons}}.
+client for a login form {{> loginButtons}}. It also provides a UI
+to help configure third party login services.
 
 As an example of these new features, we've added "private" items to
 the Todos example, which can be seen at http://auth-todos.meteor.com.
 Each user who is logged into todos can now mark items as private,
-which no other user can see or modify.  The full diff is here:
-https://github.com/meteor/meteor/commit/171816005fa2e263ba54d08d596e5b94dea47b0d
+which no other user can see or modify.
 
 ## Getting Started
 
@@ -37,7 +37,8 @@ The `auth` branch is a work in progress. The features and API may change at any 
 3. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 4. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook accounts-password`)
 5. Restrict writes (here's [what we did for todos](https://github.com/meteor/meteor/blob/171816005fa2e263ba54d08d596e5b94dea47b0d/examples/todos/server/access_control.js))
-6. You probably want to turn off autopublish (if you want to control which users see which data) 
+6. You probably want to turn off the autopublish (if you want to control which users see which data): `PATH_TO_CHECKOUT/meteor remove autopublish` 
+7. To make collections read-only by default, `PATH_TO_CHECKOUT/meteor remove insecure`
 
 ### Updates to the API
 #### Basics
@@ -80,10 +81,15 @@ Options:
 #### Low-level API
 If you're not using `accounts-ui`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email validation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
 
-- [Client] `Meteor.loginWithFacebook()`
-- [Client] `Meteor.loginWithGoogle()`
-- [Client] `Meteor.loginWithWeibo()`
-- [Client] `Meteor.loginWithTwitter()`
+- [Client] `Meteor.loginWithFacebook(callback)`
+- [Client] `Meteor.loginWithGoogle(callback)`
+- [Client] `Meteor.loginWithWeibo(callback)`
+- [Client] `Meteor.loginWithTwitter(callback)`
+ - `callback`: Function(error|null).
+  - If error is an instance of Meteor.accounts.ConfigError, you're missing the appropriate configuration document in mongo (see "Reconfiguring login services" below).
+  - If error is an instance of Meteor.accounts.LoginCancelledError, the user closed the login pop-up or didn't agree to give permissions to your app
+  - Otherwise, it could be either an expected server error (e.g., if you used Meteor.accounts.validateNewUser and the proposed user document doesn't validate), or an unexpected server error.
+
 - [Client] `Meteor.loginWithPassword(user, password, callback)`
  - `user` argument is either `{username: 'username'}`, `{email: 'email@address'}`, or a string that might be username or email.
  - `password`: the plaintext password. The password is _not_ sent unencrypted, though.
@@ -113,11 +119,9 @@ If you're not using `accounts-ui`, use these functions to implement your own log
  - `callback`: Function(error|null)
 
 
-#### Configuring login services (see section below)
-- [Client/Server] `Meteor.accounts.facebook.config(appId, appUrl, options)`
-- [Client/Server] `Meteor.accounts.google.config(clientId, appUrl, options)`
-- [Server] `Meteor.accounts.facebook.setSecret(appSecret)`
-- [Server] `Meteor.accounts.google.setSecret(clientSecret)`
+#### Configuring login services
+- [Client/Server] `Meteor.accounts.facebook.config(options)`
+- [Client/Server] `Meteor.accounts.google.config(options)`
 
 Options:
 - scope: a list of permissions to request when logging in. For example, on Facebook: `scope: ["user_birthday", "user_checkins"]`. On Google: `scope: ["https://www.googleapis.com/auth/calendar"]`
@@ -135,91 +139,15 @@ Options:
  - return value of function: a proposed user object, with all fields filled out. This can be based on the user object passed in, or constructed totally differently. throw an error to abort user creation.
  - This can only be set once. If it is not set, the default implementation simply copies the 'extra' fields into the user object.
 
-
-
-## Integrating with Login Services
-
-Note your application's deployed URL. We'll refer to that as `APP_URL`
-
-### Facebook
-1. Register your app on Facebook, noting your app ID and secret, which we will refer to as to as `APP_ID` and `APP_SECRET` (More details on this below.)
-2. Run `PATH_TO_CHECKOUT/meteor add accounts-facebook`
-3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
+### Reconfiguring login services
+`accounts-ui` supplies a simple way to configure external login services, but here's what happens underneath the hood:
+- There is a new `Meteor.accounts.configuration` collection (the Mongo collection name is `accounts._loginServicesConfiguration`). It contains documents like: 
+```js
+{ 
+  "service" : "twitter", 
+  "consumerKey" : "8RATKYCENSORED",
+  "secret" : "9hLdJD5OFXkkmKaathzXfdYSBgZ3NUgPwHCENSORED",
+  "_id" : "5b7aceca-404a-4288-882f-f910b117bd2f"
+}
 ```
-Meteor.accounts.facebook.config(APP_ID, APP_URL);
-```
-
-4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:
-```
-Meteor.accounts.facebook.setSecret(APP_SECRET);
-```
-
-#### Registering your app on Facebook (step 1 above)
-1. Go to https://developers.facebook.com/apps
-2. Click "Create new App"
-3. You only need to set a name
-4. Under "Select how your app integrates with Facebook", expand "Website with Facebook Login". Make sure to set the app URL (If you're running locally, "http://localhost:3000" works)
-
-
-### Google
-1. Get an Google client ID and secret, which we will refer to as to as `CLIENT_ID` and `CLIENT_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/google?close` as a authorized redirect URI
-2. Run `PATH_TO_CHECKOUT/meteor add accounts-google`
-3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
-```
-Meteor.accounts.google.config(CLIENT_ID, APP_URL);
-```
-
-4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:
-```
-Meteor.accounts.google.setSecret(CLIENT_SECRET);
-```
-
-
-#### Getting a Google client ID (step 1 above)
-1. Go to https://code.google.com/apis/console/
-2. Open the "API Access" tab
-3. Click on "Create another client ID"
-4. Click on "More options"
-5. Authorized Redirect URIs: Should contain APP_URL/_oauth/google?close
-6. Authorized JavaScript origins: APP_URL
-7. Click on 'Create Client ID'
-
-
-### Weibo
-1. Get an Weibo client ID and secret, which we will refer to as to as `CLIENT_ID` and `CLIENT_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/weibo?close` as a authorized redirect URI
-2. Run `PATH_TO_CHECKOUT/meteor add accounts-weibo`
-3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
-```
-Meteor.accounts.weibo.config(CLIENT_ID, APP_URL);
-```
-
-4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:
-```
-Meteor.accounts.weibo.setSecret(CLIENT_SECRET);
-```
-
-
-#### Getting a Weibo client ID (step 1 above)
-1. Go to http://open.weibo.com/development
-2. Click the "创建应用" button
-3. Follow the guide to create an application
-4. Authorized Redirect URIs: Should contain APP_URL/_oauth/weibo?close
-5. Their `App Key` is `CLIENT_ID` we need, and `App Secret` is `CLIENT_SECRET`
-
-### Twitter
-1. Get a Twitter consumer key and secret, which we will refer to as to as `CONSUMER_KEY` and `CONSUMER_SECRET` (More details on this below.) Make sure to allow `APP_URL/_oauth/twitter?close` as a authorized redirect URI
-2. Run `PATH_TO_CHECKOUT/meteor add accounts-twitter`
-3. Add the following line to a file visible to both client and server, e.g. `accounts/providers.js`:
-```
-Meteor.accounts.twitter.config(CONSUMER_KEY, APP_URL);
-```
-
-4. Add the following line to a file visible only to the server, e.g. `accounts/server/provider_secrets.js`:
-```
-Meteor.accounts.twitter.setSecret(CONSUMER_SECRET);
-```
-
-
-#### Getting a Twitter consumer key and secret (step 1 above)
-1. Go to https://dev.twitter.com/apps/new
-2. Callback URL should be APP_URL/_oauth/twitter?close
+- The easiest way to reconfigure a login service is to remove that document using the mongo shell (`meteor mongo [<domain name>]`, `db["accounts._loginServiceConfiguration"].remove({service: "twitter"})`) and reconfigure using accounts-ui. Alternatively you could modify the Mongo document directly.

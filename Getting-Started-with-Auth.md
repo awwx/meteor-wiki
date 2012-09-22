@@ -12,7 +12,7 @@ function sends to the client based on each client's login state.
 Since subscriptions are long-lived, Meteor reruns a client's
 subscriptions when its user ID changes (eg login or logout).
 
-2. The "accounts" smart package defines a new Meteor.Collection called
+2. The "accounts-base" smart package defines a new Meteor.Collection called
 "users".  We've written several packages that manage this collection
 using both third party services such Facebook and Google (via OAuth2)
 and old fashioned usernames and passwords.

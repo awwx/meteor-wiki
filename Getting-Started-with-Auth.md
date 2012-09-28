@@ -44,10 +44,11 @@ The `auth` branch is a work in progress. The features and API may change at any 
 #### Basics
 - [Client/Server] `Meteor.users` is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
 - [Client/Server] Within methods/subscriptions -- `this.userId()` returns the current user ID
-- [Client] `Meteor.user()` is a reactive function returning:
+- [Client/Server(methods)] `Meteor.user()` is a reactive function returning:
  - user document if the user is logged in and the user document data is fully loaded on the client
  - `null` if the user is logged out
  - `{_id: (user id), loading: true}` if the user is logged in but we are still waiting for the subscription to load on the client 
+- [Client/Server(methods)] `Meteor.userId()` is a reactive function that returns the current user id.
 - [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
 
 #### Configuration
@@ -79,7 +80,7 @@ Options:
 [Server] `Meteor.accounts.emailTemplates` - An object that can be modified to customize the emails that are sent.
 
 #### Low-level API
-If you're not using `accounts-ui`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email validation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
+If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email validation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
 
 - [Client] `Meteor.loginWithFacebook(callback)`
 - [Client] `Meteor.loginWithGoogle(callback)`
@@ -100,20 +101,18 @@ If you're not using `accounts-ui`, use these functions to implement your own log
  - `extra`: extra fields for the user object (eg `name`, etc).
  - `callback`: Function(error|null)
 - [Server] `Meteor.createUser(options, extra)` - Creates a user and sends that user an email with a link to choose their initial password and complete their account enrollment
- - `options` a hash containing: `email` (mandatory), `username` (optional)
+ - `options` a hash containing: `email`, `username`, and/or `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
 - [Client] `Meteor.changePassword(oldPassword, newPassword, callback)`
  - `callback`: Function(error|null)
  - Must be logged in to call this. Changes the currently logged in user.
-- [Client] `Meteor.enrollAccount(token, password, callback)` - Completes the account enrollment process that began with a server-side call to `Meteor.createUser`. Also validates this user's email address.
- - `token`: unique string contained in the email sent by `Meteor.createUser`
- - `callback`: Function(error|null)
 - [Client] `Meteor.forgotPassword(options, callback)` - Requests that a reset password link be sent to a user
  - `options`: object containing an `email` field
  - `callback`: Function(error|null)
 - [Client] `Meteor.resetPassword(token, newPassword, callback)` - Resets a user's password
  - `token`: unique string contained in the email sent to the user by `Meteor.forgotPassword`
  - `callback`: Function(error|null)
+- [Server] `Meteor.setPassword(userId, newPassword)` - Force change a user's password on the server.
 - [Client] `Meteor.validateEmail(token, callback)` - Validate a user's email
  - `token`: unique string contained in the email sent to the user by a client-side call to `Meteor.createUser` (in case `validateEmails` was set to true in the call to `Meteor.accounts.config`)
  - `callback`: Function(error|null)

@@ -103,6 +103,7 @@ If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions
 - [Server] `Meteor.createUser(options, extra)` - Creates a user and sends that user an email with a link to choose their initial password and complete their account enrollment
  - `options` a hash containing: `email`, `username`, and/or `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
+ - returns the newly created user id.
 - [Client] `Meteor.changePassword(oldPassword, newPassword, callback)`
  - `callback`: Function(error|null)
  - Must be logged in to call this. Changes the currently logged in user.

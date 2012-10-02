@@ -100,7 +100,7 @@ If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions
  - `options` a hash containing: `username` and/or `email`, `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
  - `callback`: Function(error|null)
-- [Server] `Meteor.createUser(options, extra)` - Creates a user and sends that user an email with a link to choose their initial password and complete their account enrollment
+- [Server] `Meteor.createUser(options, extra)` - Creates a user. If email is specified and password is not, sends that user an email with a link to choose their initial password and complete their account enrollment
  - `options` a hash containing: `email`, `username`, and/or `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
  - returns the newly created user id.

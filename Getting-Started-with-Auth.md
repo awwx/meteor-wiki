@@ -52,7 +52,7 @@ The `auth` branch is a work in progress. The features and API may change at any 
 - [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
 
 #### Configuration
-[Client/Server] `Meteor.accounts.config(options)` - Global configuration of the accounts system. Affects both the low-level API and the appearance of `accounts-ui`. 
+[Client/Server] `Accounts.config(options)` - Global configuration of the accounts system. Affects both the low-level API and the appearance of `accounts-ui`. 
 
 NOTE: We are fairly confident that this API will change.
 
@@ -65,19 +65,26 @@ Options:
 By default, clients are given full write access to all collections. To turn this behavior off, remove the `insecure` package
 
 #### Restricting writes
-[Server] `collection.allow(options)` Restricts default write methods on this collection. Once this is called, all write methods on this collection are secured. Multiple calls add more restrictions. Works with or without the `insecure` package.
+[Server] `collection.allow(options)` and `collection.deny(options)`. Restricts default write methods on this collection. Once either of these are called on a collection, all write methods on that collection are restricted regardless of the `insecure` package.
+
+Allow and deny can be called multiple times. The validators are
+evaluated as follows:
+- If any deny() function returns true, the request is denied.
+- Otherwise, if any allow() function returns true, the requested is allowed.
+- Otherwise, the request is denied.
+
 
 Options:
-- `insert` (Function(userId, doc)) - Return true to allow user to insert document
-- `update` (Function(userId, docs, fields, modifier)) - Return true to allow user to update documents
+- `insert` (Function(userId, doc)) - Return true to allow/deny adding this document
+- `update` (Function(userId, docs, fields, modifier)) - Return true to allow/deny updating these documents.
  - `fields` - Array of fields to be modified
  - `modifier` - Original mongo [modifier operation](http://www.mongodb.org/display/DOCS/Updating#Updating-ModifierOperations)
-- `remove` (Function(userId, docs)) - Return true to allow user to remove documents
+- `remove` (Function(userId, docs)) - Return true to allow/deny removing these documents
 - `fetch` (Array) - Fields to be fetched for update and remove restrictions (if not passed, all fields will be fetched)
 
 #### Email templates
 
-[Server] `Meteor.accounts.emailTemplates` - An object that can be modified to customize the emails that are sent.
+[Server] `Accounts.emailTemplates` - An object that can be modified to customize the emails that are sent.
 
 #### Low-level API
 If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email validation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
@@ -87,41 +94,41 @@ If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions
 - [Client] `Meteor.loginWithWeibo(callback)`
 - [Client] `Meteor.loginWithTwitter(callback)`
  - `callback`: Function(error|null).
-  - If error is an instance of Meteor.accounts.ConfigError, you're missing the appropriate configuration document in mongo (see "Reconfiguring login services" below).
-  - If error is an instance of Meteor.accounts.LoginCancelledError, the user closed the login pop-up or didn't agree to give permissions to your app
-  - Otherwise, it could be either an expected server error (e.g., if you used Meteor.accounts.validateNewUser and the proposed user document doesn't validate), or an unexpected server error.
+  - If error is an instance of Accounts.ConfigError, you're missing the appropriate configuration document in mongo (see "Reconfiguring login services" below).
+  - If error is an instance of Accounts.LoginCancelledError, the user closed the login pop-up or didn't agree to give permissions to your app
+  - Otherwise, it could be either an expected server error (e.g., if you used Accounts.validateNewUser and the proposed user document doesn't validate), or an unexpected server error.
 
 - [Client] `Meteor.loginWithPassword(user, password, callback)`
  - `user` argument is either `{username: 'username'}`, `{email: 'email@address'}`, or a string that might be username or email.
  - `password`: the plaintext password. The password is _not_ sent unencrypted, though.
  - `callback`: Function(error|null)
 - [Client] `Meteor.logout()`
-- [Client] `Meteor.createUser(options, extra, callback)` - Creates a user and logs in as that user
+- [Client] `Accounts.createUser(options, extra, callback)` - Creates a user and logs in as that user
  - `options` a hash containing: `username` and/or `email`, `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
  - `callback`: Function(error|null)
-- [Server] `Meteor.createUser(options, extra)` - Creates a user. If email is specified and password is not, sends that user an email with a link to choose their initial password and complete their account enrollment
+- [Server] `Accounts.createUser(options, extra)` - Creates a user. If email is specified and password is not, sends that user an email with a link to choose their initial password and complete their account enrollment
  - `options` a hash containing: `email`, `username`, and/or `password`
  - `extra`: extra fields for the user object (eg `name`, etc).
  - returns the newly created user id.
-- [Client] `Meteor.changePassword(oldPassword, newPassword, callback)`
+- [Client] `Accounts.changePassword(oldPassword, newPassword, callback)`
  - `callback`: Function(error|null)
  - Must be logged in to call this. Changes the currently logged in user.
-- [Client] `Meteor.forgotPassword(options, callback)` - Requests that a reset password link be sent to a user
+- [Client] `Accounts.forgotPassword(options, callback)` - Requests that a reset password link be sent to a user
  - `options`: object containing an `email` field
  - `callback`: Function(error|null)
-- [Client] `Meteor.resetPassword(token, newPassword, callback)` - Resets a user's password
- - `token`: unique string contained in the email sent to the user by `Meteor.forgotPassword`
+- [Client] `Accounts.resetPassword(token, newPassword, callback)` - Resets a user's password
+ - `token`: unique string contained in the email sent to the user by `Accounts.forgotPassword`
  - `callback`: Function(error|null)
-- [Server] `Meteor.setPassword(userId, newPassword)` - Force change a user's password on the server.
-- [Client] `Meteor.validateEmail(token, callback)` - Validate a user's email
- - `token`: unique string contained in the email sent to the user by a client-side call to `Meteor.createUser` (in case `validateEmails` was set to true in the call to `Meteor.accounts.config`)
+- [Server] `Accounts.setPassword(userId, newPassword)` - Force change a user's password on the server.
+- [Client] `Accounts.validateEmail(token, callback)` - Validate a user's email
+ - `token`: unique string contained in the email sent to the user by a client-side call to `Accounts.createUser` (in case `validateEmails` was set to true in the call to `Accounts.config`)
  - `callback`: Function(error|null)
 
 
 #### Configuring login services
-- [Client/Server] `Meteor.accounts.facebook.config(options)`
-- [Client/Server] `Meteor.accounts.google.config(options)`
+- [Client/Server] `Accounts.facebook.config(options)`
+- [Client/Server] `Accounts.google.config(options)`
 
 Options:
 - scope: a list of permissions to request when logging in. For example, on Facebook: `scope: ["user_birthday", "user_checkins"]`. On Google: `scope: ["https://www.googleapis.com/auth/calendar"]`
@@ -129,10 +136,10 @@ Options:
 
 #### Controlling new user creation
 
-- [Server] `Meteor.accounts.validateNewUser(validator)`
+- [Server] `Accounts.validateNewUser(validator)`
  - `validator`: Function(proposedUser). returns true to allow user creation, false to deny.
  - Can be called multiple times. All validators must pass for the user to be created.
-- [Server] `Meteor.accounts.onCreateUser(Function(options, extra, user))`
+- [Server] `Accounts.onCreateUser(Function(options, extra, user))`
  - `options`: Basic parameters for user creation. eg `username`, `email`.
  - `extra`: extra fields proposed for the new user. straight from the client. eg `name`.
  - `user`: A pre-processed user object with transformed options.
@@ -141,7 +148,7 @@ Options:
 
 ### Reconfiguring login services
 `accounts-ui` supplies a simple way to configure external login services, but here's what happens underneath the hood:
-- There is a new `Meteor.accounts.configuration` collection (the Mongo collection name is `accounts._loginServicesConfiguration`). It contains documents like: 
+- There is a new `Accounts.configuration` collection (the Mongo collection name is `accounts._loginServicesConfiguration`). It contains documents like: 
 ```js
 { 
   "service" : "twitter", 

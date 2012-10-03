@@ -36,13 +36,13 @@ The `auth` branch is a work in progress. The features and API may change at any 
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`
 3. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 4. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook accounts-password`)
-5. Restrict writes (here's [what we did for todos](https://github.com/meteor/meteor/blob/171816005fa2e263ba54d08d596e5b94dea47b0d/examples/todos/server/access_control.js))
+5. Restrict writes using `Collection.allow` and `Collection.deny` (see below. here's [what we did for todos](https://github.com/meteor/meteor/blob/171816005fa2e263ba54d08d596e5b94dea47b0d/examples/todos/server/access_control.js))
 6. You probably want to turn off the autopublish (if you want to control which users see which data): `PATH_TO_CHECKOUT/meteor remove autopublish` 
 7. To make collections read-only by default, `PATH_TO_CHECKOUT/meteor remove insecure`
 
 ### Updates to the API
 #### Basics
-- [Client/Server] `Meteor.users` is a collection of all users. By default the current user's public fields (eg "emails" and "name") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
+- [Client/Server] `Meteor.users` is a collection of all users. By default the current user's data fields (eg "emails", "profile" and "username") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
 - [Client/Server] Within methods/subscriptions -- `this.userId()` returns the current user ID
 - [Client/Server(methods)] `Meteor.user()` is a reactive function returning:
  - user document if the user is logged in and the user document data is fully loaded on the client

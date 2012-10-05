@@ -102,7 +102,8 @@ If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions
  - `user` argument is either `{username: 'username'}`, `{email: 'email@address'}`, or a string that might be username or email.
  - `password`: the plaintext password. The password is _not_ sent unencrypted, though.
  - `callback`: Function(error|null)
-- [Client] `Meteor.logout()`
+- [Client] `Meteor.logout(callback)`
+ - `callback`: Function(error|null)
 - [Client] `Accounts.createUser(options, extra, callback)` - Creates a user and logs in as that user
  - `options` a hash containing: `username` and/or `email`, `password`
  - `extra`: extra fields for the user object (eg `name`, etc).

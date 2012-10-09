@@ -6,7 +6,7 @@ We now have the first chunk of our authentication implemented on the
 Here are the high-level changes:
 
 1. As part of livedata, method and subscription functions on the
-server now have access to the current user ID with `this.userId()`.
+server now have access to the current user ID with `this.userId`.
 This means you can limit what a method does and what data a publish
 function sends to the client based on each client's login state.
 Since subscriptions are long-lived, Meteor reruns a client's
@@ -43,7 +43,7 @@ The `auth` branch is a work in progress. The features and API may change at any 
 ### Updates to the API
 #### Basics
 - [Client/Server] `Meteor.users` is a collection of all users. By default the current user's data fields (eg "emails", "profile" and "username") are published to all clients. If autopublish is enabled all public fields of all users are published. You can choose to publish any additional fields -- overlapping subscriptions should work fine.
-- [Client/Server] Within methods/subscriptions -- `this.userId()` returns the current user ID
+- [Client/Server] Within methods/subscriptions -- `this.userId` returns the current user ID
 - [Client/Server(methods)] `Meteor.user()` is a reactive function returning:
  - user document if the user is logged in and the user document data is fully loaded on the client
  - `null` if the user is logged out

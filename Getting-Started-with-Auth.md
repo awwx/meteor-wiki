@@ -59,7 +59,7 @@ NOTE: We are fairly confident that this API will change.
 Options:
 - `requireEmail` (Boolean) - Require users created to have an email. This also effects the login and signup forms in `accounts-ui`
 - `requireUsername` (Boolean) - Require users created to have a username. This also effects the login and signup forms in `accounts-ui`
-- `validateEmails` (Boolean) - Send validation emails to users created via `accounts-password` (as opposed to users created via OAuth, whose email is assumed to be validated).
+- `sendConfirmationEmail` (Boolean) - Send email address confirmation emails to users created via `accounts-password`.
 
 #### Disabling full write access
 By default, clients are given full write access to all collections. To turn this behavior off, remove the `insecure` package
@@ -87,7 +87,7 @@ Options:
 [Server] `Accounts.emailTemplates` - An object that can be modified to customize the emails that are sent.
 
 #### Low-level API
-If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email validation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
+If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email confirmation, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
 
 - [Client] `Meteor.loginWithFacebook(callback)`
 - [Client] `Meteor.loginWithGoogle(callback)`
@@ -122,8 +122,8 @@ If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions
  - `token`: unique string contained in the email sent to the user by `Accounts.forgotPassword`
  - `callback`: Function(error|null)
 - [Server] `Accounts.setPassword(userId, newPassword)` - Force change a user's password on the server.
-- [Client] `Accounts.validateEmail(token, callback)` - Validate a user's email
- - `token`: unique string contained in the email sent to the user by a client-side call to `Accounts.createUser` (in case `validateEmails` was set to true in the call to `Accounts.config`)
+- [Client] `Accounts.confirmEmail(token, callback)` - Confirm a user's email
+ - `token`: unique string contained in the email sent to the user by a client-side call to `Accounts.createUser` (in case `sendConfirmationEmail` was set to true in the call to `Accounts.config`)
  - `callback`: Function(error|null)
 
 

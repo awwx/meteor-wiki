@@ -13,12 +13,12 @@ Since subscriptions are long-lived, Meteor reruns a client's
 subscriptions when its user ID changes (eg login or logout).
 
 2. The "accounts-base" smart package defines a new Meteor.Collection called
-"users".  We've written several packages that manage this collection
+`Meteor.users`.  We've written several packages that manage this collection
 using both third party services such Facebook and Google (via OAuth2)
 and old fashioned usernames and passwords.
 
 3. The "accounts-ui" smart package provides convenient chrome on the
-client for a login form {{> loginButtons}}. It also provides a UI
+client for a login form `{{> loginButtons}}`. It also provides a UI
 to help configure third party login services.
 
 As an example of these new features, we've added "private" items to
@@ -47,9 +47,9 @@ The `auth` branch is a work in progress. The features and API may change at any 
 - [Client/Server(methods)] `Meteor.user()` is a reactive function returning:
  - user document if the user is logged in and the user document data is fully loaded on the client
  - `null` if the user is logged out
- - `{_id: (user id), loading: true}` if the user is logged in but we are still waiting for the subscription to load on the client 
+ - `{_id: (user id)}` if the user is logged in but we are still waiting for the subscription to load on the client. You can differentiate this from the logged-in state by using the reactive function `Meteor.userLoaded()`, which returns true if the user is logged in and the user document data is fully loaded
 - [Client/Server(methods)] `Meteor.userId()` is a reactive function that returns the current user id.
-- [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`)
+- [Client] A global Handlebars helper named `currentUser` (e.g. `{{#if currentUser}}Make private{{/if}}`), and one named `currentUserLoaded` (equivalent to `Meteor.userLoaded()`)
 
 #### Configuration
 [Client/Server] `Accounts.config(options)` - Global configuration of the accounts system. Affects both the low-level API and the appearance of `accounts-ui`. 
@@ -106,11 +106,11 @@ If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions
  - `callback`: Function(error|null)
 - [Client] `Accounts.createUser(options, extra, callback)` - Creates a user and logs in as that user
  - `options` a hash containing: `username` and/or `email`, `password`
- - `extra`: extra fields for the user object (eg `name`, etc).
+ - `extra`: extra fields for the user object (eg `name`, etc); by default only `profile` and its subfields are allowed.
  - `callback`: Function(error|null)
 - [Server] `Accounts.createUser(options, extra)` - Creates a user. If email is specified and password is not, sends that user an email with a link to choose their initial password and complete their account enrollment
  - `options` a hash containing: `email`, `username`, and/or `password`
- - `extra`: extra fields for the user object (eg `name`, etc).
+ - `extra`: extra fields for the user object (eg `name`, etc); by default only `profile` and its subfields are allowed.
  - returns the newly created user id.
 - [Client] `Accounts.changePassword(oldPassword, newPassword, callback)`
  - `callback`: Function(error|null)
@@ -145,11 +145,11 @@ Options:
  - `extra`: extra fields proposed for the new user. straight from the client. eg `name`.
  - `user`: A pre-processed user object with transformed options.
  - return value of function: a proposed user object, with all fields filled out. This can be based on the user object passed in, or constructed totally differently. throw an error to abort user creation.
- - This can only be set once. If it is not set, the default implementation simply copies the 'extra' fields into the user object.
+ - This can only be set once. If it is not set, the default implementation simply copies the `profile` field from `extra into the user object, and throws an error if there are other fields in `extra`.
 
 ### Reconfiguring login services
 `accounts-ui` supplies a simple way to configure external login services, but here's what happens underneath the hood:
-- There is a new `Accounts.configuration` collection (the Mongo collection name is `accounts._loginServicesConfiguration`). It contains documents like: 
+- There is a new `Accounts.loginServiceConfiguration` collection (the Mongo collection name is `meteor_accounts_loginServiceConfiguration`). It contains documents like: 
 ```js
 { 
   "service" : "twitter", 
@@ -158,4 +158,4 @@ Options:
   "_id" : "5b7aceca-404a-4288-882f-f910b117bd2f"
 }
 ```
-- The easiest way to reconfigure a login service is to remove that document using the mongo shell (`meteor mongo [<domain name>]`, `db["accounts._loginServiceConfiguration"].remove({service: "twitter"})`) and reconfigure using accounts-ui. Alternatively you could modify the Mongo document directly.
+- The easiest way to reconfigure a login service is to remove that document using the mongo shell (`meteor mongo [<domain name>]`, `db.meteor_accounts_loginServiceConfiguration.remove({service: "twitter"})`) and reconfigure using accounts-ui. Alternatively you could update the Mongo document directly.

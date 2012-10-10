@@ -1,3 +1,8 @@
+
+> ***
+> **Docs are being reworked at http://auth-docs.meteor.com/. This wiki will not be updated with new changes.**
+> ***
+
 ## Introduction
 
 We now have the first chunk of our authentication implemented on the

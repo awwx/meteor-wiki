@@ -1,4 +1,3 @@
-
 > ***
 > **Docs are being reworked at http://auth-docs.meteor.com/. This wiki will not be updated with new changes.**
 > ***
@@ -6,7 +5,7 @@
 ## Introduction
 
 We now have the first chunk of our authentication implemented on the
-`auth` branch in GitHub (https://github.com/meteor/meteor/tree/auth).
+`devel` branch in GitHub (https://github.com/meteor/meteor/tree/devel).
 
 Here are the high-level changes:
 
@@ -23,7 +22,7 @@ using both third party services such Facebook and Google (via OAuth2)
 and old fashioned usernames and passwords.
 
 3. The "accounts-ui" smart package provides convenient chrome on the
-client for a login form `{{> loginButtons}}`. It also provides a UI
+client for a login form `{{loginButtons}}`. It also provides a UI
 to help configure third party login services.
 
 As an example of these new features, we've added "private" items to
@@ -34,12 +33,12 @@ which no other user can see or modify.
 ## Getting Started
 
 ### Warning
-The `auth` branch is a work in progress. The features and API may change at any time.
+The `devel` branch is a work in progress. The features and API may change at any time.
 
 ### Adding Accounts to your app
-1. [Get Meteor running from a git checkout](https://github.com/meteor/meteor#slow-start-for-developers). Checkout the `auth` branch.
+1. [Get Meteor running from a git checkout](https://github.com/meteor/meteor#slow-start-for-developers). Checkout the `devel` branch.
 2. Run `PATH_TO_CHECKOUT/meteor add accounts-ui`
-3. Add `{{> loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
+3. Add `{{loginButtons}}` somewhere in your app. This adds login buttons for whatever services you configure.
 4. Add login services -- see below (e.g. `PATH_TO_CHECKOUT/meteor add accounts-google accounts-facebook accounts-password`)
 5. Restrict writes using `Collection.allow` and `Collection.deny` (see below. here's [what we did for todos](https://github.com/meteor/meteor/blob/171816005fa2e263ba54d08d596e5b94dea47b0d/examples/todos/server/access_control.js))
 6. You probably want to turn off the autopublish (if you want to control which users see which data): `PATH_TO_CHECKOUT/meteor remove autopublish` 
@@ -92,7 +91,7 @@ Options:
 [Server] `Accounts.emailTemplates` - An object that can be modified to customize the emails that are sent.
 
 #### Low-level API
-If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email verification, reset password and account enrollment. You can also use `accounts-ui` without `{{> loginButtons}}` if you just want to get the dialogs.
+If you're not using `accounts-ui` or `accounts-ui-unstyled`, use these functions to implement your own login flow. You'll also have to handle the special URLs sent in emails by showing dialogs for email verification, reset password and account enrollment. You can also use `accounts-ui` without `{{loginButtons}}` if you just want to get the dialogs.
 
 - [Client] `Meteor.loginWithFacebook(callback)`
 - [Client] `Meteor.loginWithGoogle(callback)`

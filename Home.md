@@ -26,7 +26,7 @@ If you've found a bug in Meteor, file a bug report in [our issue tracker](https:
 * Reproduce the bug from scratch, starting with a `git clone` command. Copy and paste the entire command-line input and output, starting with the `git clone` command, into the issue description of a new GitHub issue. Also describe any web browser interaction you need to do.
 * Specify what version of Meteor (`$ meteor --version`) and what web browser you used.
 
-By making it as easy as possible for others to reproduce your bug, you make it easier for your bug to be fixed.
+By making it as easy as possible for others to reproduce your bug, you make it easier for your bug to be fixed. **Issues opened without a reproducible recipe are likely to be immediately closed with a pointer to this wiki section and a request for more information.**
 
 ### How To Contribute
 

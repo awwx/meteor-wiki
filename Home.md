@@ -3,7 +3,7 @@
 First, look through these resources to see if your question has been answered already:
 * [Official Meteor Docs](http://docs.meteor.com)
 * [Questions tagged 'meteor' on StackOverflow](http://stackoverflow.com/questions/tagged/meteor)
-* [Unofficial Meteor FAQ](http://github.com/tmeasday/unofficial-meteor-faq)
+* [Unofficial Meteor FAQ](http://github.com/oortcloud/unofficial-meteor-faq)
 * [meteor-talk mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-talk) - public discussion list
 * [meteor-core mailing list](https://groups.google.com/forum/?fromgroups#!forum/meteor-core) - for discussing Meteor internals and proposed changes to Meteor itself
 

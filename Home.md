@@ -14,6 +14,7 @@ Make a good first effort to find an answer before asking your question. If you c
 
 ### Other Resources
 
+* The [Meteor Roadmap](http://roadmap.meteor.com) shows the core team's current development priorities
 * Follow the [Meteor Style Guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide)
 * What those [GitHub Issue Labels](https://github.com/meteor/meteor/wiki/GitHub-Issue-Labels) in our issue queue mean
 
@@ -30,7 +31,7 @@ By making it as easy as possible for others to reproduce your bug, you make it e
 
 ### How To Contribute
 
-Contributing doesn't necessarily mean working on Meteor internals.  See the [Get Involved page on meteor.com](http://www.meteor.com/get-involved) for a starter list of ways to contribute.
+Contributing doesn't necessarily mean working on Meteor internals.  See the [Get Involved page on meteor.com](http://www.meteor.com/get-involved) for a starter list of ways to contribute. You might also want to check out the [Meteor Roadmap](http://roadmap.meteor.com).
 
 To contribute code to Meteor core, submit a pull request.  Follow the [Contributor Guidelines](https://github.com/meteor/meteor/wiki/Contributor-Guidelines), please!
 

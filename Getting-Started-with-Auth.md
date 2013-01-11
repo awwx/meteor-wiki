@@ -1,1 +1,0 @@
-Auth has been released in Meteor 0.5.0, and Meteor Accounts is now documented in the official Meteor docs at http://docs.meteor.com/

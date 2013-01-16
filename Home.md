@@ -39,7 +39,6 @@ To contribute code to Meteor core, submit a pull request.  Follow the [Contribut
 
 Here are drafts of docs that haven't made it into http://docs.meteor.com yet.  You may find these useful.  We appreciate suggestions and improvements: file issues or submit pull requests.
 
-* [Getting Started With Auth](https://github.com/meteor/meteor/wiki/Getting-Started-with-Auth)
 * [Advanced Template Demo](http://advanced-template-demo.meteor.com/) / [source for the demo](https://github.com/meteor/meteor/tree/devel/examples/other/template-demo)
 * [Spark](https://github.com/meteor/meteor/wiki/Spark)
 * [Handlebars](https://github.com/meteor/meteor/wiki/Handlebars)

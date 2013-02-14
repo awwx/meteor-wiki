@@ -67,7 +67,7 @@ enable or disable:
 ````
 Meteor.AppCache.config({
   firefox: true,
-  IE: false
+  ie: false
 });
 ````
 
@@ -91,9 +91,8 @@ configuration:
 * `android` (enabled)
 * `chrome` (enabled)
 * `firefox` (disabled)
-* `IE` (enabled)
+* `ie` (enabled)
 * `mobileSafari` (enabled)
-* `opera` (enabled)
 * `safari` (enabled)
 
 Note that even if a browser is enabled the app cache may still not be

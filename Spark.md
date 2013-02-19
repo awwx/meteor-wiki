@@ -86,11 +86,11 @@ The contract for 'cursor' is simple. It must have a function 'observeChanges(cal
 
 * changed(id, fields): Called when the item with id `id` has changed.  The new fields are specified; the removed fields are bound to `undefined`
 
-When observe() is called, it must immediately call addedBefore() once for each item in the collection, before returning. And it must arrange for the other functions to be called as appropriate as the contents of the collection changes.
+When observeChanges() is called, it must immediately call addedBefore() once for each item in the collection, before returning. And it must arrange for the other functions to be called as appropriate as the contents of the collection changes.
 
 'observeChanges' must return an "observe handle", an object with the following method:
 
-* stop(): Stop delivering addedBefore/removed/movedBefore/changed callbacks, and free up any resources associated with the observe call.
+* stop(): Stop delivering addedBefore/removed/movedBefore/changed callbacks, and free up any resources associated with the observeChanges call.
 
 ```
     html = Spark.labelBranch(label, function () { return "<div>some html</div>"; })

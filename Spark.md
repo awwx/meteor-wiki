@@ -76,21 +76,21 @@ __This is the only function in the Spark API that creates reactivity based on th
 
 Create an area of the document that tracks the contents of a reactive collection. 'cursor' describes the collection (see below). The first function will be called once for each item in the collection, and the results concatentated together. If there are no items in the collection, the second function will be called instead. (It is optional and defaults to a function that returns the empty string.) As the contents of the collection changes, the functions are rerun as necessary and the document is updated in place. An efficient sequence of DOM operations is used. For example, if a node is moved in the collection order without changing, the DOM nodes that represent it will be moved rather than rerendered.
 
-The contract for 'cursor' is simple. It must have a function 'observe(callbacks)' where callbacks is the following:
+The contract for 'cursor' is simple. It must have a function 'observeChanges(callbacks)' where callbacks is the following:
 
-* added(item, beforeIndex): Called when a new item has been added to the collection at index beforeIndex (a number somewhere between 0 and the previous length of the collection.)
+* addedBefore(id, fields, before): Called when a new item has been added to the collection before item `before`
 
-* removed(item, atIndex): Called when the item at index atIndex has been removed from the collection. 'item' should be the old value of the item.
+* removed(id): Called when the item with id `id` is removed
 
-* moved(item, oldIndex, newIndex): Called when the item that was at index oldIndex has been moved so that it now has position newIndex. 'item' should be the value of the item.
+* movedBefore(id, before): Called when the item with id `id` moved before the item with id `before`
 
-* changed(newItem, atIndex, oldItem): Called when the item at index atIndex has changed. Its old value was oldItem and its new value is newItem.
+* changed(id, fields): Called when the item with id `id` has changed.  The new fields are specified; the removed fields are bound to `undefined`
 
-When observe() is called, it must immediately call added() once for each item in the collection, before returning. And it must arrange for the other functions to be called as appropriate as the contents of the collection changes.
+When observe() is called, it must immediately call addedBefore() once for each item in the collection, before returning. And it must arrange for the other functions to be called as appropriate as the contents of the collection changes.
 
-'observe' must return an "observe handle", an object with the following method:
+'observeChanges' must return an "observe handle", an object with the following method:
 
-* stop(): Stop delivering added/removed/moved/changed callbacks, and free up any resources associated with the observe call.
+* stop(): Stop delivering addedBefore/removed/movedBefore/changed callbacks, and free up any resources associated with the observe call.
 
 ```
     html = Spark.labelBranch(label, function () { return "<div>some html</div>"; })

@@ -1,6 +1,4 @@
-More detailed information about the browser appplication cache and the
-appcache package.
-
+The `appcache` package.
 
 ## About the App Cache
 
@@ -29,7 +27,7 @@ connection).
 ## Warning
 
 Do not use the appcache package for users of an app published on a
-domain if there is a chance that you might want to revent to a version
+domain if there is a chance that you might want to revert to a version
 of Meteor older than 0.5.5 on that domain.
 
 Meteor 0.5.4 and below does not return a 404 for the app manifest
@@ -191,6 +189,9 @@ an "application" cache, it caches the resources needed by the
 application, including the HTML, CSS, Javascript and files published
 in the public/ directory.
 
+
+## 5MB Cache Limit
+
 Different browsers have different limits on the size of the
 application cache, and generally respond poorly to going over the
 limit.  To the application, going over the limit results in a cache
@@ -205,3 +206,20 @@ size of the client application resources including the public/
 directory under 5MB.  The appcache package will print a warning if the
 total size of the resources being added to the app cache goes over
 this.
+
+If you have files in public/ that are too large to be cached, you can
+configure them to be online only:
+
+````
+Meteor.AppCache.config({
+  onlineOnly: ['/bigphoto.jpg', '/bigdata.json']
+});
+````
+
+this will cause these files to not be cached, and so they won't be
+available offline.
+
+A limitation of the app cache manifest file format is that the
+configuration is done by URL prefixes: specifying '/bigdata.json' to
+be online-only means that '/bigdata.json.orig' and
+'/bigdata.json/file1' will also not be cached.
